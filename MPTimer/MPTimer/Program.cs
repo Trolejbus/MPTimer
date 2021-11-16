@@ -1,5 +1,6 @@
 using Autofac;
 using MPTimerEventBus;
+using MPTimerUtils.Service;
 
 namespace MPTimer
 {
@@ -16,6 +17,7 @@ namespace MPTimer
             var container = new MPTimerContainerFactory().Build();
             using (var scope = container.BeginLifetimeScope())
             {
+                ScopeSingleton.Scope = scope;
                 var eventBus = scope.Resolve<EventBus>();
                 eventBus.Application.InvokeLoad();
                 

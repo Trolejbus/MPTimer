@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MPTimerEventBus\MPTimerEventBus.csproj" />
+    <ProjectReference Include="..\MPTimerUtils\MPTimerUtils.csproj" />
   </ItemGroup>
 
   <ItemGroup>
