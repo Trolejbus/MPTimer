@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MPTimer", "MPTimer\MPTimer.csproj", "{EBDE293F-75D1-40C7-8CA9-74A247C96B46}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MPTimerWorkLog", "MPTimerWorkLog\MPTimerWorkLog.csproj", "{E37ADCE7-DF9F-4081-9BEA-1AF5DC07961E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MPTimerEventBus", "MPTimerEventBus\MPTimerEventBus.csproj", "{7CE22326-291B-4C75-A607-384A32159F5E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MPTimerTime", "MPTimerTime\MPTimerTime.csproj", "{5EC9828F-9A94-4830-BAF2-0124CF8A5CAA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MPTimerUtils", "MPTimerUtils\MPTimerUtils.csproj", "{63C59725-6601-450D-94CF-0AA91CE6DB5F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MPTimerDashboard", "MPTimerDashboard\MPTimerDashboard.csproj", "{3988621F-9FC8-4E57-A73D-D6176671A79D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EBDE293F-75D1-40C7-8CA9-74A247C96B46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBDE293F-75D1-40C7-8CA9-74A247C96B46}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBDE293F-75D1-40C7-8CA9-74A247C96B46}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBDE293F-75D1-40C7-8CA9-74A247C96B46}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E37ADCE7-DF9F-4081-9BEA-1AF5DC07961E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E37ADCE7-DF9F-4081-9BEA-1AF5DC07961E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E37ADCE7-DF9F-4081-9BEA-1AF5DC07961E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E37ADCE7-DF9F-4081-9BEA-1AF5DC07961E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7CE22326-291B-4C75-A607-384A32159F5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CE22326-291B-4C75-A607-384A32159F5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CE22326-291B-4C75-A607-384A32159F5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CE22326-291B-4C75-A607-384A32159F5E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5EC9828F-9A94-4830-BAF2-0124CF8A5CAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5EC9828F-9A94-4830-BAF2-0124CF8A5CAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5EC9828F-9A94-4830-BAF2-0124CF8A5CAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5EC9828F-9A94-4830-BAF2-0124CF8A5CAA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63C59725-6601-450D-94CF-0AA91CE6DB5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63C59725-6601-450D-94CF-0AA91CE6DB5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63C59725-6601-450D-94CF-0AA91CE6DB5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63C59725-6601-450D-94CF-0AA91CE6DB5F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3988621F-9FC8-4E57-A73D-D6176671A79D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3988621F-9FC8-4E57-A73D-D6176671A79D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3988621F-9FC8-4E57-A73D-D6176671A79D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3988621F-9FC8-4E57-A73D-D6176671A79D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E8DAAA8F-D525-4575-9483-80139E97CEC5}
+	EndGlobalSection
+EndGlobal
