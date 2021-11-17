@@ -1,5 +1,15 @@
 <div class="content">
-    {{ (loading$ | async) ?? true }}
+    <p-toolbar>
+        <div class="p-toolbar-group-left">
+            <p-button label="New" icon="pi pi-plus" [routerLink]="['/work-tasks/form']"></p-button>
+            
+        </div>
+        
+        <div class="p-toolbar-group-right">
+            
+        </div>
+    </p-toolbar>
+    
     <p-table [value]="(workTasks$ | async) ?? []" [loading]="(loading$ | async) ?? true" [showLoader]="false">
         <ng-template pTemplate="header">
             <tr>

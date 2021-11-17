@@ -1,0 +1,11 @@
+@import "colors";
+
+p-button {
+    button.p-button {
+        background-color: $primary;
+
+        &:enabled:hover, &:enabled:focus {
+            background-color: $primaryHover;
+        }
+    }
+}
