@@ -17,8 +17,10 @@ import { HeaderComponent, SidebarComponent } from './components';
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot([
-      { path: '', loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule) },
-    ])
+      { path: 'dashboard', loadChildren: () => import('./features/dashboard/dashboard.module').then(m => m.DashboardModule) },
+      { path: 'work-tasks', loadChildren: () => import('./features/work-tasks/work-tasks.module').then(m => m.WorkTasksModule) },
+      { path: '**', redirectTo: 'dashboard' },
+    ]),
   ],
   providers: [],
   bootstrap: [AppComponent]
