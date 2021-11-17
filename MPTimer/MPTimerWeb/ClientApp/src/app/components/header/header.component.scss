@@ -1,0 +1,29 @@
+@import 'colors';
+
+$headerHeight: 50px;
+
+header {
+    background-color: $whiteColor;
+    height: $headerHeight;
+    -webkit-box-shadow: 3px -9px 24px 8px rgba(66, 68, 90, 1);
+    -moz-box-shadow: 3px -9px 24px 8px rgba(66, 68, 90, 1);
+    box-shadow: 3px -9px 24px 8px rgba(66, 68, 90, 1);
+
+    .logo {
+        padding: 0 10px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+
+        img {
+            height: 30px;
+            position: relative;
+            top: -2px;
+        }
+
+        h1 {
+            font-size: 24px;
+            line-height: $headerHeight;
+        }
+    }
+}

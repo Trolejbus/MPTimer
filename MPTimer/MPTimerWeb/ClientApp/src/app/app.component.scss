@@ -1,0 +1,12 @@
+.main {
+    height: 100vh;
+
+    app-header {
+        height: 70px;
+    }
+
+    .page {
+        height: calc(100% - 50px);
+        display: flex;
+    }
+}

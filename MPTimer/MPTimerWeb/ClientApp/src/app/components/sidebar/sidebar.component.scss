@@ -1,0 +1,63 @@
+@import "colors";
+
+$expandedWidth: 200px;
+$collpasedWidth: 50px;
+$sideBarItemHeight: 40px;
+
+.sidebar {
+    background-color: $secondaryColor;
+    height: 100%;
+    transition: width .5s;
+    width: $collpasedWidth;
+    overflow: hidden;
+    color: white;
+
+    &.expanded {
+        width: $expandedWidth;
+
+        .sidebar-content hr {
+            width: calc($expandedWidth - 20px);
+        }
+    }
+
+    .sidebar-content {
+        padding-top: 20px;
+        width: $expandedWidth;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+
+        .pull-down {
+            margin-top: auto;
+        }
+
+        hr {
+            margin: 0 10px;
+            transition: width .5s;
+            width: calc($collpasedWidth - 20px);
+        }
+
+        .sidebar-item {
+            display: flex;
+            height: $sideBarItemHeight;
+            cursor: pointer;
+
+            .icon {
+                text-align: center;
+                line-height: $sideBarItemHeight;
+                width: $collpasedWidth;
+                font-size: 16px;
+            }
+
+            .text {
+                line-height: $sideBarItemHeight;
+                font-size: 16px;
+            }
+
+            &:hover {
+                background-color: #C8C8C8;
+                color: black;
+            }
+        }
+    }
+}
