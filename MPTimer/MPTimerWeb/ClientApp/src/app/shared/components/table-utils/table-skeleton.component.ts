@@ -15,32 +15,39 @@ export class TableSkeletonComponent implements OnInit, AfterViewInit, OnDestroy 
   public columnsCount = 1;
   public Arr = Array;
 
-  private nativeElement = this.elRef.nativeElement as HTMLElement;
+  private nativeElement: HTMLElement;
   private additionalNodes: Node[] = [];
+  private parent?: HTMLElement;
 
-  constructor(private elRef: ElementRef) { }
+  constructor(private elRef: ElementRef) {
+    this.nativeElement = this.elRef.nativeElement as HTMLElement;
+  }
 
   ngOnInit(): void {
     this.nativeElement.classList.add('no-hover');
   }
 
   ngAfterViewInit(): void {
+    const parent = this.nativeElement.parentElement;
+    if (parent == null) {
+      throw new Error("Parent cannot be null");
+    }
+
+    this.parent = parent;
     this.duplicateRowsInParent();
   }
 
   ngOnDestroy(): void {
-    const parent = this.nativeElement.parentElement;
     for (const node of this.additionalNodes) {
-      parent?.removeChild(node);
+      this.parent!.removeChild(node);
     }
   }
 
   private duplicateRowsInParent() {
-    const parent = this.nativeElement.parentElement;
     for (let index = 0; index < this.rowsCount - 1; index++) {
       const node = this.nativeElement.cloneNode(true);
       this.additionalNodes.push(node);
-      parent?.insertBefore(node, this.nativeElement);
+      this.parent!.insertBefore(node, this.nativeElement);
     }
   }
 }

@@ -8,12 +8,12 @@ namespace MPTimerWeb.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class WorkTaskController : Controller
+    public class WorkTasksController : Controller
     {
         private IWorkTaskRepository _repository;
         private readonly IMapper _mapper;
 
-        public WorkTaskController(IWorkTaskRepository repository, IMapper mapper)
+        public WorkTasksController(IWorkTaskRepository repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;

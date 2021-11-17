@@ -1,5 +1,6 @@
 <div class="content">
-    <p-table responsiveLayout="scroll">
+    {{ (loading$ | async) ?? true }}
+    <p-table [value]="(workTasks$ | async) ?? []" [loading]="(loading$ | async) ?? true" [showLoader]="false">
         <ng-template pTemplate="header">
             <tr>
                 <th>Id</th>
