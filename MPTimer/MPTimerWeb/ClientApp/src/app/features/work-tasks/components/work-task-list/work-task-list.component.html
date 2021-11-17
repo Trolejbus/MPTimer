@@ -10,22 +10,23 @@
         </div>
     </p-toolbar>
     
-    <p-table [value]="(workTasks$ | async) ?? []" [loading]="(loading$ | async) ?? true" [showLoader]="false">
+    <p-table [value]="(workTasks$ | async) ?? []" [showLoader]="false">
         <ng-template pTemplate="header">
             <tr>
                 <th>Id</th>
                 <th>Name</th>
+                <th class="action"></th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-workTask>
             <tr>
                 <td>{{workTask.id}}</td>
                 <td>{{workTask.name}}</td>
+                <td>
+                    <button pButton (click)="remove(workTask)" type="button" icon="pi pi-trash" class="p-button-sm p-button-text p-button-danger"></button>
+                    <button pButton [routerLink]="['/work-tasks/form', workTask.id]" type="button" icon="pi pi-pencil" class="p-button-sm p-button-text"></button>
+                </td>
             </tr>
-        </ng-template>
-
-        <ng-template pTemplate="loadingbody">
-            <tr app-table-skeleton [columnsCount]="2"></tr>
         </ng-template>
 
         <ng-template pTemplate="emptymessage">

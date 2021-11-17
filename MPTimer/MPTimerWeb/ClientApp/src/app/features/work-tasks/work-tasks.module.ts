@@ -6,6 +6,8 @@ import { TableModule } from 'primeng/table';
 import { SharedModule } from '../../shared/shared.module';
 import { ToolbarModule } from 'primeng/toolbar';
 import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -18,14 +20,18 @@ import { ButtonModule } from 'primeng/button';
     RouterModule.forChild([
       { path: 'list', component: WorkTaskListComponent },
       { path: 'form', component: WorkTaskFormComponent },
+      { path: 'form/:id', component: WorkTaskFormComponent },
       { path: '**', redirectTo: 'list' },
     ]),
+    FormsModule,
+    ReactiveFormsModule,
 
     // Project
     SharedModule,
 
     // PrimeNg
     ButtonModule,
+    InputTextModule,
     TableModule,
     ToolbarModule,
   ],
