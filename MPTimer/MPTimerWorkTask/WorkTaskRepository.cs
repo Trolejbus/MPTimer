@@ -18,5 +18,12 @@ namespace MPTimerWorkTask
             var workTasks = await _context.WorkTasks.ToListAsync();
             return workTasks;
         }
+
+        public async Task<WorkTask> Add(WorkTask task)
+        {
+            var entity = _context.WorkTasks.Add(task);
+            await _context.SaveChangesAsync();
+            return entity.Entity;
+        }
     }
 }

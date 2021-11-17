@@ -25,5 +25,13 @@ namespace MPTimerWeb.Controllers
             var checks = await _repository.GetAll();
             return _mapper.Map<IEnumerable<WorkTaskDto>>(checks);
         }
+
+        [HttpPost]
+        public async Task<WorkTaskDto> Add(WorkTaskDto workTaskDto)
+        {
+            var model = _mapper.Map<WorkTask>(workTaskDto);
+            var checks = await _repository.Add(model);
+            return _mapper.Map<WorkTaskDto>(checks);
+        }
     }
 }
