@@ -17,7 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MPTimerDashboard\MPTimerDashboard.csproj" />
     <ProjectReference Include="..\MPTimerEventBus\MPTimerEventBus.csproj" />
     <ProjectReference Include="..\MPTimerTime\MPTimerTime.csproj" />
     <ProjectReference Include="..\MPTimerUtils\MPTimerUtils.csproj" />

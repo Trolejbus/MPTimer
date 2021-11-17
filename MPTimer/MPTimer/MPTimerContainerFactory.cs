@@ -1,5 +1,4 @@
 ﻿using Autofac;
-using MPTimerDashboard;
 using MPTimerEventBus;
 using MPTimerTime;
 using MPTimerUtils;
@@ -15,7 +14,6 @@ namespace MPTimer
             builder.RegisterModule<MPTimerUtilsModule>();
             builder.RegisterModule<MPTimerEventBusModule>();
             builder.RegisterModule<MPTimerTimeModule>();
-            builder.RegisterModule<MPTimerDashboardModule>();
             return builder.Build();
         }
     }

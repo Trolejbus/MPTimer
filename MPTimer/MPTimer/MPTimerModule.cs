@@ -1,6 +1,5 @@
 ﻿using Autofac;
 using MPTimer.Components;
-using MPTimer.Components.Dashboard;
 
 namespace MPTimer
 {

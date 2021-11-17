@@ -1,3 +1,4 @@
+using MPTimerWorkspaceEvent;
 using MPTimerWorkTask;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +20,8 @@ builder.Services.AddCors(options =>
 
 
 WorkTaskServices.ConfigureServices(builder.Services);
+WorkspaceEventServices.ConfigureServices(builder.Services);
+AgentServices.ConfigureServices(builder.Services);
 
 var app = builder.Build();
 

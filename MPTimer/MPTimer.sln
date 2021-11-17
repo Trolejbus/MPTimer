@@ -13,11 +13,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MPTimerTime", "MPTimerTime\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MPTimerUtils", "MPTimerUtils\MPTimerUtils.csproj", "{63C59725-6601-450D-94CF-0AA91CE6DB5F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MPTimerDashboard", "MPTimerDashboard\MPTimerDashboard.csproj", "{3988621F-9FC8-4E57-A73D-D6176671A79D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MPTimerWeb", "MPTimerWeb\MPTimerWeb.csproj", "{7F3BBF9E-614E-4E6D-A789-A0102CB8AB5E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MPTimerWeb", "MPTimerWeb\MPTimerWeb.csproj", "{7F3BBF9E-614E-4E6D-A789-A0102CB8AB5E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MPTimerWorkTask", "MPTimerWorkTask\MPTimerWorkTask.csproj", "{C85A93A8-7840-4EF0-87A3-07140C427223}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MPTimerWorkTask", "MPTimerWorkTask\MPTimerWorkTask.csproj", "{C85A93A8-7840-4EF0-87A3-07140C427223}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MPTimerWorkspaceEvent", "MPTimerWorkspaceEvent\MPTimerWorkspaceEvent.csproj", "{0D1B6A76-B964-4362-A221-4E054AEAED29}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MPTimerAgent", "MPTimerAgent\MPTimerAgent.csproj", "{E963D523-7A8D-432C-94A4-8F764803401C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,10 +47,6 @@ Global
 		{63C59725-6601-450D-94CF-0AA91CE6DB5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{63C59725-6601-450D-94CF-0AA91CE6DB5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{63C59725-6601-450D-94CF-0AA91CE6DB5F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3988621F-9FC8-4E57-A73D-D6176671A79D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3988621F-9FC8-4E57-A73D-D6176671A79D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3988621F-9FC8-4E57-A73D-D6176671A79D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3988621F-9FC8-4E57-A73D-D6176671A79D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7F3BBF9E-614E-4E6D-A789-A0102CB8AB5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7F3BBF9E-614E-4E6D-A789-A0102CB8AB5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F3BBF9E-614E-4E6D-A789-A0102CB8AB5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -57,6 +55,14 @@ Global
 		{C85A93A8-7840-4EF0-87A3-07140C427223}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C85A93A8-7840-4EF0-87A3-07140C427223}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C85A93A8-7840-4EF0-87A3-07140C427223}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D1B6A76-B964-4362-A221-4E054AEAED29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D1B6A76-B964-4362-A221-4E054AEAED29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D1B6A76-B964-4362-A221-4E054AEAED29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D1B6A76-B964-4362-A221-4E054AEAED29}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E963D523-7A8D-432C-94A4-8F764803401C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E963D523-7A8D-432C-94A4-8F764803401C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E963D523-7A8D-432C-94A4-8F764803401C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E963D523-7A8D-432C-94A4-8F764803401C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
