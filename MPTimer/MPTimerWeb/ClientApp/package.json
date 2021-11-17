@@ -15,6 +15,7 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "~13.0.1",
+    "@angular/cdk": "^13.0.1",
     "@angular/common": "~13.0.1",
     "@angular/compiler": "~13.0.1",
     "@angular/core": "~13.0.1",
@@ -28,6 +29,8 @@
     "jquery": "^3.5.1",
     "oidc-client": "^1.11.5",
     "popper.js": "^1.16.0",
+    "primeicons": "^5.0.0",
+    "primeng": "^13.0.0-rc.2",
     "run-script-os": "^1.1.6",
     "rxjs": "~6.6.0",
     "tslib": "^2.1.0",

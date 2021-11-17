@@ -1,1 +1,27 @@
-<p>work-task-list works!</p>
+<div class="content">
+    <p-table responsiveLayout="scroll">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-workTask>
+            <tr>
+                <td>{{workTask.id}}</td>
+                <td>{{workTask.name}}</td>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="loadingbody">
+            <tr app-table-skeleton [columnsCount]="2"></tr>
+        </ng-template>
+
+        <ng-template pTemplate="emptymessage">
+            <tr
+              app-table-empty-message
+              [columnsCount]="2">
+            </tr>
+          </ng-template>
+    </p-table>
+</div>

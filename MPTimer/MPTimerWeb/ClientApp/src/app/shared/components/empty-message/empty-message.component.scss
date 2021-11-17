@@ -1,0 +1,37 @@
+@import "colors";
+
+.empty-message {
+    padding: 20px 0;
+    color: $secondaryColorLight;
+
+    i {
+        font-size: 48px;
+    }
+
+    h2 {
+        text-align: center;
+        font-weight: 100;
+    }
+
+    div {
+        text-align: center;
+    }
+
+    &.error {
+        color: $secondaryColorLight;
+    }
+
+    &.large {
+        i {
+            font-size: 196px;
+        }
+
+        h2 {
+            font-size: 32px;
+        }
+
+        div {
+            font-size: 24px;
+        }
+    }
+}

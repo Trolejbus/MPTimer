@@ -1,0 +1,7 @@
+<div class="empty-message" [ngClass]="[type, size]">
+    <div>
+        <i class="pi pi-exclamation-triangle"></i>
+    </div>
+    <h2 *ngIf="title != null">{{ title }}</h2>
+    <div><ng-content></ng-content></div>
+</div>
