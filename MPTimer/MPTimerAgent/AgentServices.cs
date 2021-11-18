@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using MPTimerWorkTask.Interfaces;
+using MPTimerAgent.Interfaces;
 
-namespace MPTimerWorkTask
+namespace MPTimerAgent
 {
     public static class AgentServices
     {

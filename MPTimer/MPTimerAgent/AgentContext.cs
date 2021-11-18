@@ -1,8 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using MPTimerWorkTask.Models;
+using MPTimerAgent.Models;
 
-namespace MPTimerWorkTask
+namespace MPTimerAgent
 {
     public class AgentContext: DbContext
     {

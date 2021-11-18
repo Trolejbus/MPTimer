@@ -1,11 +1,17 @@
 <div class="page-wrapper">
-    <h3 class="display-6">Add Work Task</h3>
+    <h3 class="display-6">Add Agent</h3>
     <hr />
     <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
         <div class="field" [class.error]="form.hasError('name')">
             <label>Name</label>
             <input type="text" formControlName="name" pInputText />
             <div class="error" *ngIf="form.hasError('name', 'required')">This field is required</div>
+        </div>
+
+        <div class="field" [class.error]="form.hasError('type')">
+            <label>Type</label>
+            <p-dropdown [options]="types" formControlName="type"></p-dropdown>
+            <div class="error" *ngIf="form.hasError('type', 'required')">This field is required</div>
         </div>
 
         <div class="button-container">
@@ -16,7 +22,7 @@
                 [label]="isEditing() ? 'Update' : 'Add'"
                 [loading]="formGroup.disabled">
             </button>
-            <button pButton type="button" label="Cancel" class="p-button-text p-button-plain" [routerLink]="['work-tasks/list']"></button>
+            <button pButton type="button" label="Cancel" class="p-button-text p-button-plain" [routerLink]="['agents/list']"></button>
         </div>
     </form>
 </div>

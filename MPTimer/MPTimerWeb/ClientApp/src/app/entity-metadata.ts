@@ -1,7 +1,9 @@
 import { EntityMetadataMap, EntityDataModuleConfig } from '@ngrx/data';
 
 const entityMetadata: EntityMetadataMap = {
-  WorkTask: {}
+  WorkTask: {},
+  Agent: {},
+  WorkspaceEvent: {},
 };
 
 const pluralNames = {  };

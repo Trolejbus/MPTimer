@@ -1,6 +1,6 @@
-﻿using MPTimerWorkTask.Models;
+﻿using MPTimerAgent.Models;
 
-namespace MPTimerWorkTask.Interfaces
+namespace MPTimerAgent.Interfaces
 {
     public interface IAgentRepository
     {

@@ -33,12 +33,14 @@ const defaultDataServiceConfig: DefaultDataServiceConfig = {
     RouterModule.forRoot([
       { path: 'dashboard', loadChildren: () => import('./features/dashboard/dashboard.module').then(m => m.DashboardModule) },
       { path: 'work-tasks', loadChildren: () => import('./features/work-tasks/work-tasks.module').then(m => m.WorkTasksModule) },
+      { path: 'agents', loadChildren: () => import('./features/agents/agents.module').then(m => m.AgentsModule) },
+      { path: 'workspace-events', loadChildren: () => import('./features/workspace-events').then(m => m.WorkspaceEventsModule) },
       { path: '**', redirectTo: 'dashboard' },
     ]),
     StoreModule.forRoot({}, {}),
     EffectsModule.forRoot([]),
     EntityDataModule.forRoot(entityConfig),
-    
+
     ToastModule,
     ConfirmDialogModule,
   ],

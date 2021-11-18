@@ -1,14 +1,14 @@
 ﻿using MPTimerAgent.Enums;
 
-namespace MPTimerAgent.Models
+namespace MPTimerWeb.Dtos.Agent
 {
-    public class Agent
+    public class AgentDto
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
         public AgentType Type { get; set; }
 
-        public Agent(Guid id, string name, AgentType type)
+        public AgentDto(Guid id, string name, AgentType type)
         {
             Id = id;
             Name = name;

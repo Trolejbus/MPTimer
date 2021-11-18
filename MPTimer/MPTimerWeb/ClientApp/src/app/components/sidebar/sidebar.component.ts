@@ -22,6 +22,11 @@ export class SidebarComponent implements OnInit {
       icon: 'fa-clipboard-list',
       link: 'work-tasks',
     },
+    {
+      label: 'Agents',
+      icon: 'fa-network-wired',
+      link: 'agents',
+    }
   ]);
 
   public vm$ = combineLatest([

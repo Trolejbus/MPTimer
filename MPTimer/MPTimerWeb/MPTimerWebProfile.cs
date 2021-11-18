@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using MPTimerAgent.Models;
+using MPTimerWeb.Dtos.Agent;
 using MPTimerWeb.Dtos.WorkTask;
 using MPTimerWorkTask.Models;
 
@@ -9,6 +11,8 @@ namespace MPTimerWeb
         public MPTimerWebProfile()
         {
             CreateMap<WorkTask, WorkTaskDto>()
+                .ReverseMap();
+            CreateMap<Agent, AgentDto>()
                 .ReverseMap();
         }
     }

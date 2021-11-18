@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MPTimerWorkTask.Interfaces;
-using MPTimerWorkTask.Models;
+using MPTimerAgent.Interfaces;
+using MPTimerAgent.Models;
 
-namespace MPTimerWorkTask
+namespace MPTimerAgent
 {
     internal class AgentRepository : IAgentRepository
     {
@@ -21,8 +21,8 @@ namespace MPTimerWorkTask
 
         public async Task<IEnumerable<Agent>> GetAll()
         {
-            var workTasks = await _context.Agents.ToListAsync();
-            return workTasks;
+            var entities = await _context.Agents.ToListAsync();
+            return entities;
         }
 
         public async Task<Agent> Add(Agent task)
