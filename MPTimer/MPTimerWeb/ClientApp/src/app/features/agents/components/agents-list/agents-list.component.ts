@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { AgentStatus } from '@app/features';
 import { ToastService } from '@app/services';
 import { ConfirmationService } from 'primeng/api';
-import { Observable } from 'rxjs';
-import { AgentDto } from '../../models';
+import { combineLatest } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
+import { AgentDto, AgentStateDto } from '../../models';
 import { AgentService } from '../../services';
-import { AgentTypeTranslator } from '../../utils';
+import { AgentTranslator } from '../../utils';
 
 @Component({
   selector: 'app-agents-list',
@@ -13,17 +15,25 @@ import { AgentTypeTranslator } from '../../utils';
 })
 export class AgentsListComponent implements OnInit {
 
-  public agents$: Observable<AgentDto[]>;
-  public loading$: Observable<boolean>;
-  public AgentTypeTranslator = AgentTypeTranslator;
+  public agents$ = this.agentService.entities$;
+  public loading$ = this.agentService.loading$;
+  public agentStates$ = this.agentService.getStates();
+  public vm$ = combineLatest([
+    this.agents$.pipe(startWith(null)),
+    this.loading$,
+    this.agentStates$.pipe(startWith(null)),
+  ]).pipe(
+    map(([agents, loading, states]) => ({ agents, loading, states})),
+  );
+  
+  public AgentTranslator = AgentTranslator;
+  public AgentStatus = AgentStatus;
   
   constructor(
     private agentService: AgentService,
     private confirmationService: ConfirmationService,
     private toastService: ToastService,
   ) {
-    this.agents$ = agentService.entities$;
-    this.loading$ = agentService.loading$;
   }
 
   ngOnInit() {
@@ -40,5 +50,9 @@ export class AgentsListComponent implements OnInit {
           });
       }
     });
+  }
+
+  public agentStates(states: AgentStateDto[] | null, agent: AgentDto): AgentStateDto | null {
+    return states?.find(s => s.agentId === agent.id) ?? null;
   }
 }

@@ -1,1 +1,1 @@
-export * from './agent-type.translator';
+export * from './agent.translator';

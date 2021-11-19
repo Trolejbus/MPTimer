@@ -1,0 +1,11 @@
+@import 'colors';
+
+p-tag .p-tag {
+    &.p-tag-success {
+        background-color: #598234;
+    }
+
+    &.p-tag-info {
+        background-color: $secondaryColorLight;
+    }
+}

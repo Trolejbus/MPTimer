@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MPTimerAgent.Models;
+using MPTimerAgent.Entities;
+using System.Diagnostics;
 
 namespace MPTimerAgent
 {
@@ -12,6 +13,10 @@ namespace MPTimerAgent
         {
         }
 
-        public DbSet<Agent> Agents => Set<Agent>();
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+            => optionsBuilder.LogTo(message => Debug.WriteLine(message));
+
+        public DbSet<Agent> Agent => Set<Agent>();
+        public DbSet<AgentRuntime> AgentRuntime => Set<AgentRuntime>();
     }
 }

@@ -14,6 +14,12 @@
             .name {
                 font-size: 24px;
                 font-weight: 100;
+
+                p-tag {
+                    margin-left: 5px;
+                    position: relative;
+                    top: -4px;
+                }
             }
     
             .type {

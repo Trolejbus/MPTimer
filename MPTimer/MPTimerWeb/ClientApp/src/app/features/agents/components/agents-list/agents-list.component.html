@@ -1,4 +1,4 @@
-<div class="page-wrapper">
+<div class="page-wrapper" *ngIf="(vm$ | async) as vm">
     <p-toolbar>
         <div class="p-toolbar-group-left">
             <p-button label="New" icon="pi pi-plus" [routerLink]="['/agents/form']"></p-button>
@@ -10,11 +10,18 @@
         </div>
     </p-toolbar>
 
-    <div class="agent-list" *ngIf="(agents$ | async) as agents">
-        <div *ngFor="let agent of agents" class="agent-item">
+    <div class="agent-list">
+        <div *ngFor="let agent of vm.agents" class="agent-item">
             <div class="info">
-                <div class="name">{{ agent.name }}</div>
-                <div class="type">{{ AgentTypeTranslator.translate(agent.type) }} ({{ agent.id }})</div>
+                <div class="name">
+                    {{ agent.name }}
+                    <p-tag
+                        *ngIf="agentStates(vm.states, agent) as state"
+                        [value]="AgentTranslator.status(state.status)"
+                        [severity]="state.status === AgentStatus.Online ? 'success' : 'info'">
+                    </p-tag>
+                </div>
+                <div class="type">{{ AgentTranslator.type(agent.type) }} ({{ agent.id }})</div>
             </div>
             <div class="actions">
                 <button pButton (click)="remove(agent)" type="button" icon="pi pi-trash" class="p-button-sm p-button-text p-button-danger"></button>

@@ -1,4 +1,5 @@
-﻿using MPTimerAgent.Models;
+﻿using MPTimerAgent.Entities;
+using MPTimerAgent.Models;
 
 namespace MPTimerAgent.Interfaces
 {
@@ -9,5 +10,9 @@ namespace MPTimerAgent.Interfaces
         Task Remove(Guid id);
         Task<Agent> GetById(Guid id);
         Task<Agent> Update(Guid id, Agent model);
+        Task NotifyConnect(Guid id);
+        Task NotifyDisconnect(Guid guid);
+        Task<IEnumerable<AgentState>> GetAgentStates();
+        Task DisconnectAllAgents();
     }
 }

@@ -4,6 +4,7 @@ using MPTimerAgent;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MPTimerAgent.Migrations
 {
     [DbContext(typeof(AgentContext))]
-    partial class AgentContextModelSnapshot : ModelSnapshot
+    [Migration("20211118141944_AgentRuntime")]
+    partial class AgentRuntime
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,7 +24,7 @@ namespace MPTimerAgent.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("MPTimerAgent.Entities.Agent", b =>
+            modelBuilder.Entity("MPTimerAgent.Models.Agent", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -37,10 +39,10 @@ namespace MPTimerAgent.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Agent");
+                    b.ToTable("Agents");
                 });
 
-            modelBuilder.Entity("MPTimerAgent.Entities.AgentRuntime", b =>
+            modelBuilder.Entity("MPTimerAgent.Models.AgentRuntime", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -62,16 +64,16 @@ namespace MPTimerAgent.Migrations
                     b.ToTable("AgentRuntime");
                 });
 
-            modelBuilder.Entity("MPTimerAgent.Entities.AgentRuntime", b =>
+            modelBuilder.Entity("MPTimerAgent.Models.AgentRuntime", b =>
                 {
-                    b.HasOne("MPTimerAgent.Entities.Agent", null)
+                    b.HasOne("MPTimerAgent.Models.Agent", null)
                         .WithMany("AgentRuntimes")
                         .HasForeignKey("AgentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("MPTimerAgent.Entities.Agent", b =>
+            modelBuilder.Entity("MPTimerAgent.Models.Agent", b =>
                 {
                     b.Navigation("AgentRuntimes");
                 });

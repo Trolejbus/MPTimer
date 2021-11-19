@@ -6,7 +6,7 @@ import { FormUtils, GuidUtils } from '@app/shared';
 import { SelectItem } from 'primeng/api';
 import { of, Subscription } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
-import { AgentTypeTranslator } from '../../utils';
+import { AgentTranslator } from '../../utils';
 import { AgentType } from '../../enums';
 import { AgentDto } from '../../models';
 import { AgentService } from '../../services';
@@ -22,7 +22,7 @@ import { AgentService } from '../../services';
 export class AgentFormComponent implements OnInit {
 
   public types: SelectItem<AgentType>[] = [
-    { label: AgentTypeTranslator.translate(AgentType.DesktopApp), value: AgentType.DesktopApp },
+    { label: AgentTranslator.type(AgentType.DesktopApp), value: AgentType.DesktopApp },
   ];
 
   public formGroup: FormGroup;

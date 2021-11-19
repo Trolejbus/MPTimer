@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using MPTimerAgent.Entities;
 using MPTimerAgent.Interfaces;
-using MPTimerAgent.Models;
 using MPTimerWeb.Dtos.Agent;
 
 namespace MPTimerWeb.Controllers
@@ -53,6 +53,13 @@ namespace MPTimerWeb.Controllers
         public async Task Remove(Guid id)
         {
             await _repository.Remove(id);
+        }
+
+        [HttpGet("/api/agents/status")]
+        public async Task<IEnumerable<AgentStateDto>> GetAgentStatuses()
+        {
+            var statuses = await _repository.GetAgentStates();
+            return _mapper.Map<IEnumerable<AgentStateDto>>(statuses);
         }
     }
 }

@@ -8,6 +8,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ToolbarModule } from 'primeng/toolbar';
 import { AgentFormComponent, AgentsListComponent } from './components';
 import { DropdownModule } from 'primeng/dropdown';
+import { TagModule } from 'primeng/tag';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { DropdownModule } from 'primeng/dropdown';
     InputTextModule,
     ToolbarModule,
     DropdownModule,
+    TagModule,
   ],
 })
 export class AgentsModule { }

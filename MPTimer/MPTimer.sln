@@ -3,15 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MPTimer", "MPTimer\MPTimer.csproj", "{EBDE293F-75D1-40C7-8CA9-74A247C96B46}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MPTimer", "Tray\MPTimer\MPTimer.csproj", "{EBDE293F-75D1-40C7-8CA9-74A247C96B46}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MPTimerWorkLog", "MPTimerWorkLog\MPTimerWorkLog.csproj", "{E37ADCE7-DF9F-4081-9BEA-1AF5DC07961E}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MPTimerEventBus", "MPTimerEventBus\MPTimerEventBus.csproj", "{7CE22326-291B-4C75-A607-384A32159F5E}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MPTimerTime", "MPTimerTime\MPTimerTime.csproj", "{5EC9828F-9A94-4830-BAF2-0124CF8A5CAA}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MPTimerUtils", "MPTimerUtils\MPTimerUtils.csproj", "{63C59725-6601-450D-94CF-0AA91CE6DB5F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MPTimerWeb", "MPTimerWeb\MPTimerWeb.csproj", "{7F3BBF9E-614E-4E6D-A789-A0102CB8AB5E}"
 EndProject
@@ -19,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MPTimerWorkTask", "MPTimerW
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MPTimerWorkspaceEvent", "MPTimerWorkspaceEvent\MPTimerWorkspaceEvent.csproj", "{0D1B6A76-B964-4362-A221-4E054AEAED29}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MPTimerAgent", "MPTimerAgent\MPTimerAgent.csproj", "{E963D523-7A8D-432C-94A4-8F764803401C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MPTimerAgent", "MPTimerAgent\MPTimerAgent.csproj", "{E963D523-7A8D-432C-94A4-8F764803401C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tray", "Tray", "{EC64F9C8-A370-4AE5-884F-B100E2C9AC7B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,18 +31,6 @@ Global
 		{E37ADCE7-DF9F-4081-9BEA-1AF5DC07961E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E37ADCE7-DF9F-4081-9BEA-1AF5DC07961E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E37ADCE7-DF9F-4081-9BEA-1AF5DC07961E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7CE22326-291B-4C75-A607-384A32159F5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7CE22326-291B-4C75-A607-384A32159F5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7CE22326-291B-4C75-A607-384A32159F5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7CE22326-291B-4C75-A607-384A32159F5E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5EC9828F-9A94-4830-BAF2-0124CF8A5CAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5EC9828F-9A94-4830-BAF2-0124CF8A5CAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5EC9828F-9A94-4830-BAF2-0124CF8A5CAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5EC9828F-9A94-4830-BAF2-0124CF8A5CAA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{63C59725-6601-450D-94CF-0AA91CE6DB5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{63C59725-6601-450D-94CF-0AA91CE6DB5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{63C59725-6601-450D-94CF-0AA91CE6DB5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{63C59725-6601-450D-94CF-0AA91CE6DB5F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7F3BBF9E-614E-4E6D-A789-A0102CB8AB5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7F3BBF9E-614E-4E6D-A789-A0102CB8AB5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F3BBF9E-614E-4E6D-A789-A0102CB8AB5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -66,6 +50,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EBDE293F-75D1-40C7-8CA9-74A247C96B46} = {EC64F9C8-A370-4AE5-884F-B100E2C9AC7B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E8DAAA8F-D525-4575-9483-80139E97CEC5}

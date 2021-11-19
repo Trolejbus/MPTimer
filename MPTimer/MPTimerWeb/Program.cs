@@ -1,4 +1,6 @@
 using MPTimerAgent;
+using MPTimerWeb.Hubs;
+using MPTimerWeb.Services;
 using MPTimerWorkspaceEvent;
 using MPTimerWorkTask;
 
@@ -18,7 +20,8 @@ builder.Services.AddCors(options =>
                 .AllowAnyHeader();
         });
 });
-
+builder.Services.AddSignalR();
+builder.Services.AddHostedService<DisconnectAgentsService>();
 
 WorkTaskServices.ConfigureServices(builder.Services);
 WorkspaceEventServices.ConfigureServices(builder.Services);
@@ -40,6 +43,10 @@ app.UseCors("local");
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller}/{action=Index}/{id?}");
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapHub<AgentHub>("/Agent");
+});
 
 app.MapFallbackToFile("index.html"); ;
 
