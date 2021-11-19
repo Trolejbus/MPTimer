@@ -1,0 +1,28 @@
+<div class="work-time-line-container">
+    <table>
+        <tr>
+            <th class="task"></th>
+            <th
+                class="hour-column"
+                *ngFor="let a of hourArray; let i = index"
+                [class.first]="i === 0"
+                [ngStyle]="(i > 0 && !isLast(i)) ? { 'width.%': getColumnWidth() } : null"
+            >
+                {{ !isLast(i) ? (minHour + i) : '' }}
+            </th>
+        </tr>
+        <tr>
+            <td class="task">Agent 1 Uptime<br /><span class="runtime-summary">00:00:00</span></td>
+            <th class="hour-column" *ngFor="let a of hourArray; let i = index" [class.first]="i === 0">
+                
+            </th>
+        </tr>
+        <tr>
+            <td class="task">Screen locked<br /><span class="runtime-summary">00:00:00</span></td>
+            <th class="hour-column" *ngFor="let a of hourArray; let i = index" [class.first]="i === 0">
+                
+            </th>
+        </tr>
+    </table>
+
+</div>

@@ -3,14 +3,16 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { KnobModule } from 'primeng/knob';
 import { ChartModule } from 'primeng/chart';
-import { AgentWidgetComponent, DashboardComponent, TimeWorkedWidgetComponent, CurrentTaskWidgetComponent } from './components';
+import { AgentWidgetComponent, DashboardComponent, TimeWorkedWidgetComponent, CurrentTaskWidgetComponent, WorkTimeLineComponent
+  } from './components';
 
 @NgModule({
   declarations: [
     DashboardComponent,
     TimeWorkedWidgetComponent,
     AgentWidgetComponent,
-    CurrentTaskWidgetComponent
+    CurrentTaskWidgetComponent,
+    WorkTimeLineComponent
   ],
   imports: [
     CommonModule,
