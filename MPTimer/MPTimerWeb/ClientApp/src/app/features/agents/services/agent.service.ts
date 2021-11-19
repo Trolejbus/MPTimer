@@ -4,7 +4,7 @@ import { EntityCollectionServiceBase, EntityCollectionServiceElementsFactory } f
 import { environment } from "../../../../environments/environment";
 import { combineLatest } from "rxjs";
 import { AgentDto, AgentStateDto } from "../models";
-import { SignalRService } from "@app/services";
+import { SignalRService, ToastService } from "@app/services";
 import { startWith, switchMap } from "rxjs/operators";
 
 @Injectable({ providedIn: 'root' })

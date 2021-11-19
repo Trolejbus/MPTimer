@@ -8,6 +8,8 @@ header {
     -webkit-box-shadow: 3px -9px 24px 8px rgba(66, 68, 90, 1);
     -moz-box-shadow: 3px -9px 24px 8px rgba(66, 68, 90, 1);
     box-shadow: 3px -9px 24px 8px rgba(66, 68, 90, 1);
+    z-index: 1000;
+    position: relative;
 
     .logo {
         padding: 0 10px;
