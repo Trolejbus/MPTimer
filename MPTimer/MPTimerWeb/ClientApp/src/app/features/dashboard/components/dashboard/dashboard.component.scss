@@ -1,9 +1,14 @@
 .dashboard-row {
     margin: 50px;
+    display: flex;
+    gap: 50px;
+    justify-content: stretch;
 
     .section {
+        flex: 1 1 200px;
         background-color: white;
         box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-        padding: 10px;
+        padding: 20px 30px;
     }
 }
+

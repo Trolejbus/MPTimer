@@ -1,0 +1,29 @@
+@import "colors";
+
+.current-task-widget {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: stretch;
+    align-items: center;
+
+    .label {
+        flex: 1 1 20px;
+        color: $secondaryColorLight;
+        align-self: flex-start;
+        font-size: 14px;
+    }
+
+    .task-name {
+        flex: 1 1 20px;
+        width: 150px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 30px;
+    }
+
+    .time {
+        flex: 1 1 20px;
+    }
+}

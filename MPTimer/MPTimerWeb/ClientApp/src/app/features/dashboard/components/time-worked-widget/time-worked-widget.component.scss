@@ -1,0 +1,19 @@
+.time-worked-widget {
+    display: flex;
+
+    .chart-wrapper {
+        width: 100px;
+        flex: 0 0 auto;
+    }
+
+    .timers-wrapper {
+        margin-left: 20px;
+        font-size: 14px;
+
+        .timer-label {
+            font-weight: bold;
+            display: inline-block;
+            padding-right: 10px;
+        }
+    }
+}
