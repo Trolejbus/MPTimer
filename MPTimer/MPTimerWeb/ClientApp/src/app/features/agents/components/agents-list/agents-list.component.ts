@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AgentStatus } from '@app/features';
 import { ToastService } from '@app/services';
 import { ConfirmationService } from 'primeng/api';
-import { combineLatest } from 'rxjs';
+import { combineLatest, of } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { AgentDto, AgentStateDto } from '../../models';
 import { AgentService } from '../../services';
@@ -17,11 +17,11 @@ export class AgentsListComponent implements OnInit {
 
   public agents$ = this.agentService.entities$;
   public loading$ = this.agentService.loading$;
-  public agentStates$ = this.agentService.getStates();
+  public agentStates$ = this.agentService.agentStates$;
   public vm$ = combineLatest([
     this.agents$.pipe(startWith(null)),
     this.loading$,
-    this.agentStates$.pipe(startWith(null)),
+    this.agentService.agentStates$,
   ]).pipe(
     map(([agents, loading, states]) => ({ agents, loading, states})),
   );

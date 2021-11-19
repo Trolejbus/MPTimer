@@ -17,22 +17,40 @@ namespace MPTimerWeb.Hubs
         {
             await base.OnConnectedAsync();
             var httpContext = Context.GetHttpContext() ?? throw new Exception("Cannot be null");
-            var agentId = httpContext.Request.Query["agentId"];
-            Agents.Add(Context.ConnectionId, agentId);
-            await _repository.NotifyConnect(new Guid(agentId));
+            var agentId = httpContext.Request.Query["agentId"].ToString();
+            if (!string.IsNullOrEmpty(agentId))
+            {
+                Agents.Add(Context.ConnectionId, agentId);
+                await Groups.AddToGroupAsync(Context.ConnectionId, "Agents");
+                await _repository.NotifyConnect(new Guid(agentId));
+                await NotifyAgentConnected(agentId);
+            }
+            else
+            {
+                await Groups.AddToGroupAsync(Context.ConnectionId, "Frontends");
+            }
         }
 
         public override async Task OnDisconnectedAsync(Exception? exception)
         {
             await base.OnDisconnectedAsync(exception);
             var agentId = Agents[Context.ConnectionId];
-            Agents.Remove(Context.ConnectionId);
-            await _repository.NotifyDisconnect(new Guid(agentId));
+            if (!string.IsNullOrEmpty(agentId))
+            {
+                Agents.Remove(Context.ConnectionId);
+                await _repository.NotifyDisconnect(new Guid(agentId));
+                await NotifyAgentDisconnected(agentId);
+            }
+        }
+        
+        public async Task NotifyAgentConnected(string agentId)
+        {
+            await Clients.Group("Frontends").SendAsync("AgentConnected", agentId);
         }
 
-        public Task SendMessage(string user, string message)
+        public async Task NotifyAgentDisconnected(string agentId)
         {
-            return Clients.All.SendAsync("ReceiveMessage", user, message);
+            await Clients.Group("Frontends").SendAsync("AgentDisconnected", agentId);
         }
     }
 }

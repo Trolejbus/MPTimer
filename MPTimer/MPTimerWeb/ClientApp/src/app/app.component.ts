@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { ToastService } from './services';
+import { ToastService, SignalRService } from './services';
 
 @Component({
   selector: 'app-root',
@@ -12,11 +12,17 @@ import { ToastService } from './services';
     ConfirmationService,
   ],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+
   constructor(
     private toastService: ToastService,
     private messageService: MessageService,
+    private signalRService: SignalRService,
   ) {
     this.toastService.showToast$.subscribe(m => this.messageService.add(m));
+  }
+
+  ngOnInit() {
+    this.signalRService.init();
   }
 }

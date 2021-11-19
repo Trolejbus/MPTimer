@@ -17,7 +17,8 @@ builder.Services.AddCors(options =>
         {
             builder.WithOrigins("https://localhost:44436")
                 .AllowAnyMethod()
-                .AllowAnyHeader();
+                .AllowAnyHeader()
+                .AllowCredentials();
         });
 });
 builder.Services.AddSignalR();
@@ -46,6 +47,7 @@ app.MapControllerRoute(
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapHub<AgentHub>("/Agent");
+    endpoints.MapHub<FrontendHub>("/Frontend");
 });
 
 app.MapFallbackToFile("index.html"); ;

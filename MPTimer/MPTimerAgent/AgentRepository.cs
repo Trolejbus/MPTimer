@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.SignalR;
+using Microsoft.EntityFrameworkCore;
 using MPTimerAgent.Entities;
 using MPTimerAgent.Enums;
 using MPTimerAgent.Interfaces;
@@ -52,6 +53,11 @@ namespace MPTimerAgent
         public async Task NotifyConnect(Guid id)
         {
             var agent = await _context.Agent.Include(a => a.AgentRuntimes).FirstAsync(a => a.Id == id);
+            if (agent.AgentRuntimes.Any(r => r.To == null))
+            {
+                return;
+            }
+
             agent.AgentRuntimes.Add(new AgentRuntime(id, DateTime.Now));
             await _context.SaveChangesAsync();
         }

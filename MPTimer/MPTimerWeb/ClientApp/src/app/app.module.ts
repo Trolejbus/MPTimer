@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
-import { HeaderComponent, SidebarComponent } from './components';
+import { FooterComponent, HeaderComponent, SidebarComponent } from './components';
 import { StoreModule } from '@ngrx/store';
 import { DefaultDataServiceConfig, EntityDataModule } from '@ngrx/data';
 import { entityConfig } from './entity-metadata';
@@ -13,6 +13,7 @@ import { environment } from '../environments/environment';
 import { ToastModule } from 'primeng/toast';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { TooltipModule } from 'primeng/tooltip';
 
 const defaultDataServiceConfig: DefaultDataServiceConfig = {
   root: `${environment.backendUrl}/api`,
@@ -24,6 +25,7 @@ const defaultDataServiceConfig: DefaultDataServiceConfig = {
     AppComponent,
     HeaderComponent,
     SidebarComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
