@@ -48,7 +48,7 @@ jobs:
         run: |
           dotnet tool install --global dotnet-ef
           dotnet tool restore
-          dotnet ef database update -c AgentContext --project MpTimerAgent --startup-project MPTimerWeb
+          dotnet ef database update -c AgentContext --project MPTimerAgent --startup-project MPTimerWeb
         env:
           ASPNETCORE_ENVIRONMENT: Release
         
