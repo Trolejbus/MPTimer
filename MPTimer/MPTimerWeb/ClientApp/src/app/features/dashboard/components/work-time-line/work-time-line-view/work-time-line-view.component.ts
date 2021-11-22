@@ -149,7 +149,7 @@ export class WorkTimeLineViewComponent implements OnInit, OnChanges, AfterViewIn
     return `${event.name}
       From: ${this.formatDate(activity.from)}
       To: ${activity.to != null ? this.formatDate(activity.to) : 'Still working'}
-      Total: ${this.formatTime(diffrence)}`;
+      Total: ${this.formatTime(diffrence)}${activity.notes != null ? `\n${activity.notes}` : ''}`;
   }
 
   public getEventTime(vm: any, event: WorkTimeLineEventModel): string {

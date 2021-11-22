@@ -41,6 +41,7 @@ export class WorkTimeLineComponent implements OnInit {
               id: event.id,
               from: event.from,
               to: event.to,
+              notes: `Reason: ${event.data}`,
             })),
         })),
       },

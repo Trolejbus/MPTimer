@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
+using MPTimer.Controls;
 using MPTimer.Enums;
 using MPTimer.Interfaces;
 using MPTimer.Models;
@@ -31,6 +32,14 @@ namespace MPTimer.Controllers
             }
 
             workspaceEvent.To = DateTime.Now;
+
+            var form = new GetTextForm()
+            {
+                Label = "What have you done during screen lock?",
+            };
+            form.ShowDialog();
+            workspaceEvent.Data = form.Value;
+
             await _service.Update(workspaceEvent);
         }
     }

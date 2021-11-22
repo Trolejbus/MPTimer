@@ -9,6 +9,7 @@ namespace MPTimer.Models
         public DateTime From { get; set; }
         public DateTime? To { get; set; }
         public Guid AgentId { get; set; }
+        public string? Data { get; set; }
 
         public TrayWorkspaceEvent(Guid id, TrayWorkspaceEventType type, DateTime from, Guid agentId)
         {
