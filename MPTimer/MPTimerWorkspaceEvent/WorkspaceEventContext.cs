@@ -13,5 +13,10 @@ namespace MPTimerWorkspaceEvent
         }
 
         public DbSet<WorkspaceEvent> WorkspaceEvents => Set<WorkspaceEvent>();
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.HasDefaultSchema("WorkspaceEvent");
+        }
     }
 }

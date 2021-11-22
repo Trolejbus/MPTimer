@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using MPTimerWorkTask.Models;
 
 namespace MPTimerWorkTask
@@ -14,5 +13,10 @@ namespace MPTimerWorkTask
         }
 
         public DbSet<WorkTask> WorkTasks => Set<WorkTask>();
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.HasDefaultSchema("WorkTask");
+        }
     }
 }

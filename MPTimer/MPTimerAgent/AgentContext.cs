@@ -18,5 +18,10 @@ namespace MPTimerAgent
 
         public DbSet<Agent> Agent => Set<Agent>();
         public DbSet<AgentRuntime> AgentRuntime => Set<AgentRuntime>();
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.HasDefaultSchema("Agent");
+        }
     }
 }
