@@ -46,7 +46,6 @@ export class WorkTimeLineComponent implements OnInit {
         })),
       },
     ])),
-    tap(c => console.log(c)),
   )
 
   constructor(

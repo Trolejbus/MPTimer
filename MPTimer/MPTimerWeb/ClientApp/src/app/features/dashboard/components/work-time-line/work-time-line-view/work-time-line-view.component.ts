@@ -1,5 +1,6 @@
 import { AfterViewInit, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
 import { ChangeDetectionStrategy, Component, ElementRef, Input, OnInit, ViewChildren } from '@angular/core';
+import { DateUtils } from '@app/shared';
 import { BehaviorSubject, combineLatest, interval, Subject } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { WorkTimeLineActivityModel, WorkTimeLineEventModel, WorkTimeLineSectionModel } from '../models';
@@ -147,8 +148,8 @@ export class WorkTimeLineViewComponent implements OnInit, OnChanges, AfterViewIn
   public getActivityTooltip(activity: WorkTimeLineActivityModel, event: WorkTimeLineEventModel): string {
     const diffrence = this.getDiffrence(activity.from, activity.to);
     return `${event.name}
-      From: ${this.formatDate(activity.from)}
-      To: ${activity.to != null ? this.formatDate(activity.to) : 'Still working'}
+      From: ${DateUtils.format(activity.from)}
+      To: ${activity.to != null ? DateUtils.format(activity.to) : 'Still working'}
       Total: ${this.formatTime(diffrence)}${activity.notes != null ? `\n${activity.notes}` : ''}`;
   }
 
@@ -182,7 +183,7 @@ export class WorkTimeLineViewComponent implements OnInit, OnChanges, AfterViewIn
 
   public getXByTime(hour: number, minute: number, hourWidth: number, minHour: number): number {
     const hourIndex = hour - minHour;
-    return hourIndex * hourWidth + minute / 60 * hourWidth;
+    return hourIndex * hourWidth + minute / 60 * hourWidth + hourWidth;
   }
 
   public getTimeByX(x: number, vm: any): TimeSpan {
@@ -200,12 +201,8 @@ export class WorkTimeLineViewComponent implements OnInit, OnChanges, AfterViewIn
     return result += showSeconds ? ':' + (timeSpan.second < 10 ? `0${timeSpan.second}` : timeSpan.second.toString()) : '';
   }
 
-  public formatDate(date: Date): string {
-    return date.toISOString().replace('T', ' ').split('.')[0];
-  }
-
   private getDiffrence(date1: Date, date2?: Date): TimeSpan {
-    var diff = (date2 ?? new Date).getTime() - date1.getTime();
+    var diff = (date2 ?? new Date()).getTime() - date1.getTime();
     var seconds = Math.floor(diff / 1000);
 
     const hour = Math.floor(seconds / 3600);
