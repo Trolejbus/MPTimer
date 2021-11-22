@@ -5,6 +5,7 @@ import { map, startWith, switchMap } from "rxjs/operators";
 import { AgentRuntimeDto } from "../models";
 import { SignalRService } from "@app/services";
 import { HttpClient } from "@angular/common/http";
+import { DateUtils } from "@app/shared";
 
 @Injectable({ providedIn: 'root' })
 export class AgentRuntimeService {
@@ -18,8 +19,8 @@ export class AgentRuntimeService {
     switchMap(() => this.httpClient.get<AgentRuntimeDto[]>(`${environment.backendUrl}/api/agentRuntimes`)),
     map((runtimes) => runtimes.map(runtime => ({
       ...runtime,
-      from: new Date(runtime.from),
-      to: runtime.to != null ? new Date(runtime.to) : null,
+      from: DateUtils.convertUTCDateToLocalDate(runtime.from),
+      to: runtime.to != null ? DateUtils.convertUTCDateToLocalDate(runtime.to) : null,
     }) as AgentRuntimeDto)),
   );
   
@@ -30,3 +31,4 @@ export class AgentRuntimeService {
     
   }
 }
+

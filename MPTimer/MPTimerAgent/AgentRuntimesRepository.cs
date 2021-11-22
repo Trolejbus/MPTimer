@@ -19,7 +19,7 @@ namespace MPTimerAgent
             var query = _context.AgentRuntime.AsQueryable();
             if (filter?.OnlyToday ?? false)
             {
-                query = query.Where(q => q.From > DateTime.Now.Date && (q.To == null || q.To < DateTime.Now.Date.AddDays(1)));
+                query = query.Where(q => q.From > DateTime.UtcNow.Date && (q.To == null || q.To < DateTime.UtcNow.Date.AddDays(1)));
             }
 
             return await query.ToListAsync();
@@ -33,7 +33,7 @@ namespace MPTimerAgent
                 throw new Exception("Agent is already connected");
             }
 
-            agent.AgentRuntimes.Add(new AgentRuntime(id, DateTime.Now));
+            agent.AgentRuntimes.Add(new AgentRuntime(id, DateTime.UtcNow));
             await _context.SaveChangesAsync();
         }
 
@@ -43,7 +43,7 @@ namespace MPTimerAgent
             var runtime = agent.AgentRuntimes.FirstOrDefault(r => r.To == null);
             if (runtime == null) return;
 
-            runtime.To = DateTime.Now;
+            runtime.To = DateTime.UtcNow;
             await _context.SaveChangesAsync();
         }
 
@@ -52,7 +52,7 @@ namespace MPTimerAgent
             var agentRuntimes = await _context.AgentRuntime.ToListAsync();
             foreach (var agentRuntime in agentRuntimes)
             {
-                agentRuntime.To = DateTime.Now;
+                agentRuntime.To = DateTime.UtcNow;
             }
 
             await _context.SaveChangesAsync();

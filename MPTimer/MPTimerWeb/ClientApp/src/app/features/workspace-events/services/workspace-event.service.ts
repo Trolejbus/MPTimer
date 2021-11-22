@@ -5,6 +5,7 @@ import { map, startWith, switchMap } from "rxjs/operators";
 import { SignalRService } from "@app/services";
 import { HttpClient } from "@angular/common/http";
 import { WorkspaceEventDto } from "../models";
+import { DateUtils } from "@app/shared";
 
 @Injectable({ providedIn: 'root' })
 export class WorkspaceEventService {
@@ -18,8 +19,8 @@ export class WorkspaceEventService {
     switchMap(() => this.httpClient.get<WorkspaceEventDto[]>(`${environment.backendUrl}/api/workspaceEvents`)),
     map((runtimes) => runtimes.map(runtime => ({
       ...runtime,
-      from: new Date(runtime.from),
-      to: runtime.to != null ? new Date(runtime.to) : null,
+      from: DateUtils.convertUTCDateToLocalDate(runtime.from),
+      to: runtime.to != null ? DateUtils.convertUTCDateToLocalDate(runtime.to) : null,
     }) as WorkspaceEventDto)),
   );
   

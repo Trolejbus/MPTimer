@@ -20,7 +20,7 @@ namespace MPTimer.Controllers
 
         public async Task SessionLocked()
         {
-            workspaceEvent = new TrayWorkspaceEvent(Guid.NewGuid(), TrayWorkspaceEventType.ScreenLocked, DateTime.Now, _agentId);
+            workspaceEvent = new TrayWorkspaceEvent(Guid.NewGuid(), TrayWorkspaceEventType.ScreenLocked, DateTime.UtcNow, _agentId);
             await _service.Create(workspaceEvent);
         }
 
@@ -31,7 +31,7 @@ namespace MPTimer.Controllers
                 return;
             }
 
-            workspaceEvent.To = DateTime.Now;
+            workspaceEvent.To = DateTime.UtcNow;
 
             var form = new GetTextForm()
             {
