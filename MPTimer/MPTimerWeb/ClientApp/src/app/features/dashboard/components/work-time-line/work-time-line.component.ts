@@ -1,4 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { AgentRuntimeService, AgentService } from '@app/features/agents';
+import { combineLatest, Observable } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 import { WorkTimeLineSectionModel } from './models';
 
 @Component({
@@ -41,11 +44,36 @@ export class WorkTimeLineComponent implements OnInit {
         },
       ]
     }
-  ]
+  ];
 
-  constructor() { }
+  public sections$: Observable<WorkTimeLineSectionModel[]> = combineLatest([
+    this.agentRuntimeService.agentRuntimes$,
+    this.agentService.entities$,
+  ]).pipe(
+    map(([runtimes, agents]) => ([
+      {
+        events: agents.map(agent => ({
+          id: agent.id,
+          name: agent.name,
+          color: '#336B87',
+          activities: runtimes.filter(runtime => runtime.agentId == agent.id).map(runtime => ({
+            id: runtime.id,
+            from: runtime.from,
+            to: runtime.to,
+          }))
+        })),
+      }
+    ])),
+    tap(c => console.log(c)),
+  )
+
+  constructor(
+    private agentRuntimeService: AgentRuntimeService,
+    private agentService: AgentService,
+  ) { }
 
   ngOnInit(): void {
+    this.agentService.getAll();
   }
 
 

@@ -11,6 +11,7 @@ namespace MPTimerAgent
             services.AddDbContext<AgentContext>(options =>
                 options.UseSqlServer("name=ConnectionStrings:Agent"));
             services.AddScoped<IAgentRepository, AgentRepository>();
+            services.AddScoped<IAgentRuntimesRepository, AgentRuntimesRepository>();
         }
     }
 }

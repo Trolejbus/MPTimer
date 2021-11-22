@@ -32,6 +32,7 @@
                 <div class="event-info-column">
                     {{ event.name }}<br />
                     <span class="runtime-summary">{{ getEventTime(vm, event) }}</span>
+                    <span class="dot success in-progress" *ngIf="getEventIsWorking(vm, event)"></span>
                 </div>
                 <div class="hour-column-container">
                     <div

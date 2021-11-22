@@ -6,9 +6,9 @@ namespace MPTimerWeb.Hubs
     public class AgentHub : Hub
     {
         private static Dictionary<string, string> Agents = new Dictionary<string, string>();
-        private readonly IAgentRepository _repository;
+        private readonly IAgentRuntimesRepository _repository;
 
-        public AgentHub(IAgentRepository repository)
+        public AgentHub(IAgentRuntimesRepository repository)
         {
             _repository = repository;
         }

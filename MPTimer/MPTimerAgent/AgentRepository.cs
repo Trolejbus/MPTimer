@@ -50,28 +50,6 @@ namespace MPTimerAgent
             await _context.SaveChangesAsync();
         }
 
-        public async Task NotifyConnect(Guid id)
-        {
-            var agent = await _context.Agent.Include(a => a.AgentRuntimes).FirstAsync(a => a.Id == id);
-            if (agent.AgentRuntimes.Any(r => r.To == null))
-            {
-                return;
-            }
-
-            agent.AgentRuntimes.Add(new AgentRuntime(id, DateTime.Now));
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task NotifyDisconnect(Guid id)
-        {
-            var agent = await _context.Agent.Include(a => a.AgentRuntimes).FirstAsync(a => a.Id == id);
-            var runtime = agent.AgentRuntimes.FirstOrDefault(r => r.To == null);
-            if (runtime == null) return;
-
-            runtime.To = DateTime.Now;
-            await _context.SaveChangesAsync();
-        }
-
         public async Task<IEnumerable<AgentState>> GetAgentStates()
         {
             var agents = await _context.Agent.ToListAsync();
@@ -85,17 +63,6 @@ namespace MPTimerAgent
                 AgentId = agent.Id,
                 Status = onlineAgents.Any(o => o.AgentId == agent.Id) ? AgentStatus.Online : AgentStatus.Offline,
             });
-        }
-
-        public async Task DisconnectAllAgents()
-        {
-            var agentRuntimes = await _context.AgentRuntime.ToListAsync();
-            foreach (var agentRuntime in agentRuntimes)
-            {
-                agentRuntime.To = DateTime.Now;
-            }
-
-            await _context.SaveChangesAsync();
         }
     }
 }

@@ -38,6 +38,7 @@ export class WorkTimeLineViewComponent implements OnInit, OnChanges, AfterViewIn
       hourArray: Array(vm.maxHour - vm.minHour).fill(1),
     })),
   );
+
   public eventTimes$ = combineLatest([
     this.sections$,
     this.updateDates$,
@@ -61,6 +62,7 @@ export class WorkTimeLineViewComponent implements OnInit, OnChanges, AfterViewIn
         total: {
           hour, minute, second
         },
+        isWorking: event.activities.some(a => a.to == null),
       };
     })),
   );
@@ -153,6 +155,10 @@ export class WorkTimeLineViewComponent implements OnInit, OnChanges, AfterViewIn
   public getEventTime(vm: any, event: WorkTimeLineEventModel): string {
     const total = vm.eventTimes.find((e: any) => e.eventId === event.id).total;
     return this.formatTime(total);
+  }
+
+  public getEventIsWorking(vm: any, event: WorkTimeLineEventModel): boolean {
+    return vm.eventTimes.find((e: any) => e.eventId === event.id).isWorking;
   }
 
   public mouseEnter(): void {

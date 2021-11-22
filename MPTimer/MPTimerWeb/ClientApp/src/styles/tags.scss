@@ -1,0 +1,13 @@
+@import 'colors';
+
+.tag {
+    display: inline-block;
+    background-color: $secondaryColorLight;
+    border-radius: 2px;
+    padding: 2px 5px;
+
+    &.success {
+        background-color: $successColor;
+        color: white;
+    }
+}

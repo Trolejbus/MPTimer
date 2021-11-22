@@ -14,7 +14,7 @@ namespace MPTimerWeb.Services
         public async Task StartAsync(CancellationToken cancellationToken)
         {
             using var scope = _services.CreateScope();
-            var repository = scope.ServiceProvider.GetRequiredService<IAgentRepository>();
+            var repository = scope.ServiceProvider.GetRequiredService<IAgentRuntimesRepository>();
             await repository.DisconnectAllAgents();
         }
 
