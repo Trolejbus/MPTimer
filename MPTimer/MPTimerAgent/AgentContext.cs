@@ -6,6 +6,10 @@ namespace MPTimerAgent
 {
     public class AgentContext: DbContext
     {
+        public AgentContext(): base()
+        {
+
+        }
 
         public AgentContext(
             DbContextOptions<AgentContext> options)
