@@ -33,7 +33,7 @@ jobs:
           dotnet tool install dotnet-ef
           
       - name: Generate scripts
-        working-directory: ./MPTimer/MPTimerWeb
+        working-directory: ./MPTimer/MPTimerAgent
         run: dotnet ef migrations bundle
 
       - name: Generate scripts
