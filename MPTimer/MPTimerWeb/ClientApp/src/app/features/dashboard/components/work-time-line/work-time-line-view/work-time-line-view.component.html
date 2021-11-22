@@ -1,0 +1,90 @@
+<div class="work-time-line-container">
+    <div class="time-line-row header">
+        <div class="event-info-column">
+
+        </div>
+        <div class="hour-column-container" #container>
+            <ng-container *ngIf="(vm$ | async) as vm">
+                <div
+                    class="hour-column"
+                    *ngFor="let a of vm.hourArray; let i = index"
+                    [class.first]="i === 0"
+                    [ngStyle]="{ 'width.px': vm.hourWidth }"
+                    (mouseenter)="mouseEnter()"
+                    (mouseleave)="mouseLeave()"
+                    (mousemove)="mouseMove($event, container, vm)"
+                >
+                    {{ vm.minHour + i }}
+                </div>
+            </ng-container>
+
+            <ng-container *ngIf="currentTimeVisible$ | async">
+                <div *ngIf="(mousePosition$ | async) as mousePosition" class="currentTimeLine" [ngStyle]="{ 'left.px': mousePosition.x + 120 }">
+                    <div class="time">{{ formatTime(mousePosition.time, false) }}</div>
+                    <div class="line"></div>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+    <ng-container *ngIf="(vm$ | async) as vm">
+        <ng-container *ngFor="let section of vm.sections">
+            <div class="time-line-row" *ngFor="let event of section.events">
+                <div class="event-info-column">
+                    {{ event.name }}<br />
+                    <span class="runtime-summary">{{ getEventTime(vm, event) }}</span>
+                </div>
+                <div class="hour-column-container">
+                    <div
+                        class="hour-column"
+                        *ngFor="let a of vm.hourArray; let i = index"
+                        [class.first]="i === 0"
+                        [ngStyle]="{ 'width.px': vm.hourWidth }"
+                        (mouseenter)="mouseEnter()"
+                        (mouseleave)="mouseLeave()"
+                        (mousemove)="mouseMove($event, container, vm)"
+                    >
+                    </div>
+
+                    <div
+                        class="activity"
+                        *ngFor="let activity of event.activities"
+                        [ngStyle]="getActivityStyles(activity, event, vm)"
+                    >
+                        <div class="time-container">
+                            <div class="time">{{ formatTime(getActivityTime(activity, vm)) }}</div>
+                        </div>
+                        <div
+                            class="bar"
+                            [pTooltip]="getActivityTooltip(activity, event)"
+                            tooltipPosition="top">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+    </ng-container>
+
+    <!--<table #table>
+        <tr>
+            <th class="task" #taskColumn></th>
+           
+        </tr>
+        
+            <tr class="event" *ngFor="let event of section.events">
+                
+                <td
+                    class="hour-column"
+                    *ngFor="let a of hourArray; let i = index"
+                    [class.first]="i === 0"
+                    (mouseenter)="mouseEnter()"
+                    (mouseleave)="mouseLeave()"
+                    (mousemove)="mouseMove($event, table)"
+                >
+                </td>
+            </tr>
+        </ng-container>
+
+        
+    </table>-->
+</div>
