@@ -31,25 +31,6 @@ jobs:
         run: |
           dotnet new tool-manifest
           dotnet tool install dotnet-ef
-          
-      - name: Generate scripts
-        working-directory: ./MPTimer/MPTimerAgent
-        run: dotnet ef migrations bundle
-
-      - name: Generate scripts
-        working-directory: ./MPTimer
-        run: dotnet ef migrations script --no-build --output ${{env.DOTNET_ROOT}}/sql/sql-script-workspace-event.sql --idempotent --context WorkspaceEventContext --project MPTimerWorkspaceEvent --startup-project MPTimerWeb
-        
-      - name: Generate scripts
-        working-directory: ./MPTimer
-        run: dotnet ef migrations script --no-build --output ${{env.DOTNET_ROOT}}/sql/sql-script-work-task.sql --idempotent --context WorkTaskContext --project MPTimerWorkTask --startup-project MPTimerWeb
-        
-      - name: Azure SQL Deploy
-        uses: Azure/sql-action@v1
-        with:
-          server-name: tcp:mptimer.database.windows.net
-          connection-string: ${{ secrets.AGENT_CONNECTION_STRING }}
-          sql-file: ${{env.DOTNET_ROOT}}/sql/sql-script.sql
         
       - name: dotnet publish
         working-directory: ./MPTimer
