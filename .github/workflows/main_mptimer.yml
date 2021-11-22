@@ -33,8 +33,8 @@ jobs:
           dotnet tool install dotnet-ef
           
       - name: Generate scripts
-        working-directory: ./MPTimer
-        run: dotnet ef migrations script --output ${{env.DOTNET_ROOT}}/sql/sql-script-agent.sql --no-build --idempotent --context AgentContext --project MPTimerAgent --startup-project MPTimerWeb
+        working-directory: ./MPTimer/MPTimerWeb
+        run: dotnet ef database update --context AgentContext
         
       - name: Generate scripts
         working-directory: ./MPTimer
