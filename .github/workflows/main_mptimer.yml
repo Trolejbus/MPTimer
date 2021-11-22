@@ -30,15 +30,6 @@ jobs:
       - name: dotnet publish
         working-directory: ./MPTimer
         run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
-        
-      - name: Replace tokens
-        uses: cschleiden/replace-tokens@v1.1
-        with:
-          tokenPrefix: '#{{'
-          tokenSuffix: '}}#'
-          files: '["**/*.js"]'
-        env:
-          backendUrl: 'test'
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
