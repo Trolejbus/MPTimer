@@ -44,6 +44,14 @@ jobs:
         working-directory: ./MPTimer
         run: dotnet ef migrations script --output ${{env.DOTNET_ROOT}}/sql/sql-script-work-task.sql --idempotent --context WorkTaskContext --project MPTimerWorkTask --startup-project MPTimerWeb
         
+      - name: Update database
+        run: |
+          dotnet tool install --global dotnet-ef
+          dotnet tool restore
+          dotnet ef database update -c AgentContext --project MpTimerAgent --startup-project MPTimerWeb
+        env:
+          ASPNETCORE_ENVIRONMENT: Release
+        
       - name: dotnet publish
         working-directory: ./MPTimer
         run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
@@ -66,14 +74,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: .net-app
-          
-      - name: Update database
-        run: |
-          dotnet tool install --global dotnet-ef
-          dotnet tool restore
-          dotnet ef database update -c AgentContext --project MpTimerAgent --startup-project MPTimerWeb
-        env:
-          ASPNETCORE_ENVIRONMENT: Release
+        
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
