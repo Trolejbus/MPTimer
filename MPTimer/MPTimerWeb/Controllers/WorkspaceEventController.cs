@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
+using MPTimerWeb.Hubs;
 using MPTimerWorkspaceEvent.Interfaces;
 using MPTimerWorkspaceEvent.Models;
 
@@ -9,10 +11,12 @@ namespace MPTimerWeb.Controllers
     public class WorkspaceEventController : Controller
     {
         private IWorkspaceEventRepository _repository;
+        private readonly IHubContext<AgentHub> _hub;
 
-        public WorkspaceEventController(IWorkspaceEventRepository repository)
+        public WorkspaceEventController(IWorkspaceEventRepository repository, IHubContext<AgentHub> hub)
         {
             _repository = repository;
+            _hub = hub;
         }
 
         [HttpGet("/api/workspaceEvents")]
@@ -21,10 +25,20 @@ namespace MPTimerWeb.Controllers
             return await _repository.GetAll();
         }
 
-        [HttpPost("/api/agent")]
+        [HttpPost("/api/workspaceEvent")]
         public async Task<WorkspaceEvent> Add(WorkspaceEvent workspaceEvent)
         {
-            return await _repository.Add(workspaceEvent);
+            var result = await _repository.Add(workspaceEvent);
+            await _hub.Clients.Group("Frontends").SendAsync("WorkspaceEventAdded", workspaceEvent.Id);
+            return result;
+        }
+
+        [HttpPut("/api/workspaceEvent/{id}")]
+        public async Task<WorkspaceEvent> Update(Guid id, WorkspaceEvent workspaceEvent)
+        {
+            var result = await _repository.Update(id, workspaceEvent);
+            await _hub.Clients.Group("Frontends").SendAsync("WorkspaceEventUpdated", id);
+            return result;
         }
     }
 }

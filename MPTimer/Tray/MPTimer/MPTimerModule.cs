@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using MPTimer.Components;
 using MPTimer.Controllers;
 using MPTimer.Interfaces;
+using MPTimer.Service;
 
 namespace MPTimer
 {
@@ -22,6 +23,7 @@ namespace MPTimer
             builder.RegisterType<TrayController>().As<TrayController>().As<IStartable>().SingleInstance();
             builder.RegisterType<WorkspaceEventsController>().As<IWorkspaceEventsController>().SingleInstance();
             builder.RegisterType<SignalRController>().As<ISignalRController>().SingleInstance();
+            builder.RegisterType<WorkspaceEventService>().As<IWorkspaceEventService>().SingleInstance();
             builder.RegisterInstance(configuration).As<IConfiguration>().SingleInstance();
         }
     }

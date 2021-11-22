@@ -23,7 +23,6 @@ builder.Services.AddCors(options =>
 });
 builder.Services.AddSignalR();
 builder.Services.AddHostedService<DisconnectAgentsService>();
-
 WorkTaskServices.ConfigureServices(builder.Services);
 WorkspaceEventServices.ConfigureServices(builder.Services);
 AgentServices.ConfigureServices(builder.Services);

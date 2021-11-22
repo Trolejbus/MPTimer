@@ -8,8 +8,8 @@ import { WorkspaceEventDto } from "../models";
 
 @Injectable({ providedIn: 'root' })
 export class WorkspaceEventService {
-  private agentConnected$ = this.signalRService.on$("WorkspaceEventStarted").pipe(startWith(null));
-  private agentDisconnected$ = this.signalRService.on$("WorkspaceEventStoped").pipe(startWith(null));
+  private agentConnected$ = this.signalRService.on$("WorkspaceEventAdded").pipe(startWith(null));
+  private agentDisconnected$ = this.signalRService.on$("WorkspaceEventUpdated").pipe(startWith(null));
 
   public workspaceEvents$ = combineLatest([
     this.agentConnected$,

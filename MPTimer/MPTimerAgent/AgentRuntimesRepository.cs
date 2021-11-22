@@ -5,7 +5,7 @@ using MPTimerAgent.Models;
 
 namespace MPTimerAgent
 {
-    internal class AgentRuntimesRepository : IAgentRuntimesRepository
+    public class AgentRuntimesRepository : IAgentRuntimesRepository
     {
         private readonly AgentContext _context;
 
