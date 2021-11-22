@@ -8,9 +8,9 @@ namespace MPTimerWorkspaceEvent.Models
         public WorkspaceEventType Type { get; set; }
         public DateTime From { get; set; }
         public DateTime? To { get; set; }
-        public string AgentId { get; set; }
+        public Guid AgentId { get; set; }
 
-        public WorkspaceEvent(Guid id, WorkspaceEventType type, DateTime from, string agentId)
+        public WorkspaceEvent(Guid id, WorkspaceEventType type, DateTime from, Guid agentId)
         {
             Id = id;
             Type = type;

@@ -30,7 +30,7 @@ namespace MPTimerAgent
             var agent = await _context.Agent.Include(a => a.AgentRuntimes).FirstAsync(a => a.Id == id);
             if (agent.AgentRuntimes.Any(r => r.To == null))
             {
-                return;
+                throw new Exception("Agent is already connected");
             }
 
             agent.AgentRuntimes.Add(new AgentRuntime(id, DateTime.Now));

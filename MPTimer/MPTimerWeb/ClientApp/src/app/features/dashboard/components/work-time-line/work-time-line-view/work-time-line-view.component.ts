@@ -182,7 +182,7 @@ export class WorkTimeLineViewComponent implements OnInit, OnChanges, AfterViewIn
 
   public getXByTime(hour: number, minute: number, hourWidth: number, minHour: number): number {
     const hourIndex = hour - minHour;
-    return hourIndex * hourWidth + minute / 60 * hourWidth + hourWidth;
+    return hourIndex * hourWidth + minute / 60 * hourWidth;
   }
 
   public getTimeByX(x: number, vm: any): TimeSpan {
