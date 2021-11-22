@@ -38,11 +38,11 @@ jobs:
         
       - name: Generate scripts
         working-directory: ./MPTimer
-        run: dotnet ef migrations script --no-build --output ${{env.DOTNET_ROOT}}/sql/sql-script-workspace-event.sql --idempotent --context WorkspaceEventContext
+        run: dotnet ef migrations script --no-build --output ${{env.DOTNET_ROOT}}/sql/sql-script-workspace-event.sql --idempotent --context WorkspaceEventContext --project MPTimerWorkspaceEvent --startup-project MPTimerWeb
         
       - name: Generate scripts
         working-directory: ./MPTimer
-        run: dotnet ef migrations script --no-build --output ${{env.DOTNET_ROOT}}/sql/sql-script-work-task.sql --idempotent --context WorkTaskContext
+        run: dotnet ef migrations script --no-build --output ${{env.DOTNET_ROOT}}/sql/sql-script-work-task.sql --idempotent --context WorkTaskContext --project MPTimerWorkTask --startup-project MPTimerWeb
         
       - name: Azure SQL Deploy
         uses: Azure/sql-action@v1
