@@ -44,6 +44,13 @@ jobs:
         working-directory: ./MPTimer
         run: dotnet ef migrations script --output ${{env.DOTNET_ROOT}}/sql/sql-script-work-task.sql --idempotent --context WorkTaskContext
         
+      - name: Azure SQL Deploy
+        uses: Azure/sql-action@v1
+        with:
+          server-name: tcp:mptimer.database.windows.net
+          connection-string: ${{ secrets.AGENT_CONNECTION_STRING }}
+          sql-file: ${{env.DOTNET_ROOT}}/sql/sql-script.sql
+        
       - name: dotnet publish
         working-directory: ./MPTimer
         run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
