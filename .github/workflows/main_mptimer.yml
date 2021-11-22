@@ -31,27 +31,7 @@ jobs:
         run: |
           dotnet new tool-manifest
           dotnet tool install dotnet-ef
-        
-      - name: Build SQL AgentContext
-        working-directory: ./MPTimer
-        run: dotnet ef migrations script --output ${{env.DOTNET_ROOT}}/sql/sql-script-agent.sql --idempotent --context AgentContext --project MpTimerAgent --startup-project MPTimerWeb
-        
-      - name: Build SQL WorkspaceEvent
-        working-directory: ./MPTimer
-        run: dotnet ef migrations script --output ${{env.DOTNET_ROOT}}/sql/sql-script-workspace-event.sql --idempotent --context WorkspaceEventContext --project MPTimerWorkspaceEvent --startup-project MPTimerWeb
-        
-      - name: Build SQL WorkTask
-        working-directory: ./MPTimer
-        run: dotnet ef migrations script --output ${{env.DOTNET_ROOT}}/sql/sql-script-work-task.sql --idempotent --context WorkTaskContext --project MPTimerWorkTask --startup-project MPTimerWeb
-        
-      - name: Update database
-        run: |
-          dotnet tool install --global dotnet-ef
-          dotnet tool restore
-          dotnet ef database update -c AgentContext --project MPTimerAgent --startup-project MPTimerWeb
-        env:
-          ASPNETCORE_ENVIRONMENT: Release
-        
+
       - name: dotnet publish
         working-directory: ./MPTimer
         run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
