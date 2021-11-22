@@ -36,6 +36,14 @@ jobs:
         with:
           name: .net-app
           path: ${{env.DOTNET_ROOT}}/myapp
+          
+      - name: Update database
+        run: |
+          dotnet tool install --global dotnet-ef
+          dotnet tool restore
+          dotnet ef database update -c AgentContext
+        env:
+          ASPNETCORE_ENVIRONMENT: Release
 
   deploy:
     runs-on: windows-latest
