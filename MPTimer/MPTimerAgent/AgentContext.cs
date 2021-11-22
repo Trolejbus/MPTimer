@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MPTimerAgent.Entities;
-using System.Diagnostics;
 
 namespace MPTimerAgent
 {
