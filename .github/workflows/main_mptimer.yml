@@ -33,12 +33,15 @@ jobs:
           dotnet tool install dotnet-ef
           
       - name: Generate scripts
+        working-directory: ./MPTimer
         run: dotnet ef migrations script --output ${{env.DOTNET_ROOT}}/sql/sql-script-agent.sql --idempotent --context AgentContext
         
       - name: Generate scripts
+        working-directory: ./MPTimer
         run: dotnet ef migrations script --output ${{env.DOTNET_ROOT}}/sql/sql-script-workspace-event.sql --idempotent --context WorkspaceEventContext
         
       - name: Generate scripts
+        working-directory: ./MPTimer
         run: dotnet ef migrations script --output ${{env.DOTNET_ROOT}}/sql/sql-script-work-task.sql --idempotent --context WorkTaskContext
         
       - name: dotnet publish
