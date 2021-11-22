@@ -17,8 +17,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MPTimerAgent", "MPTimerAgen
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tray", "Tray", "{EC64F9C8-A370-4AE5-884F-B100E2C9AC7B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MPTimetUtility.cs", "MPTimetUtility.cs\MPTimetUtility.cs.csproj", "{D8A94836-7653-4EB5-ADB1-5F69F73B866C}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,10 +47,6 @@ Global
 		{E963D523-7A8D-432C-94A4-8F764803401C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E963D523-7A8D-432C-94A4-8F764803401C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E963D523-7A8D-432C-94A4-8F764803401C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D8A94836-7653-4EB5-ADB1-5F69F73B866C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D8A94836-7653-4EB5-ADB1-5F69F73B866C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D8A94836-7653-4EB5-ADB1-5F69F73B866C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D8A94836-7653-4EB5-ADB1-5F69F73B866C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

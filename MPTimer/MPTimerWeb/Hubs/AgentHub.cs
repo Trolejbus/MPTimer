@@ -52,14 +52,5 @@ namespace MPTimerWeb.Hubs
         {
             await Clients.Group("Frontends").SendAsync("AgentDisconnected", agentId);
         }
-
-        public async Task WorkspaceEventAdded(Guid workspaceId)
-        {
-        }
-
-        public async Task WorkspaceEventUpdated(Guid workspaceId)
-        {
-            await Clients.Group("Frontends").SendAsync("WorkspaceEventUpdated", workspaceId);
-        }
     }
 }
