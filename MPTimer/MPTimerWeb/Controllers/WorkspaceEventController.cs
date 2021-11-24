@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using MPTimerWeb.Hubs;
+using MPTimerWorkspaceEvent.Entities;
 using MPTimerWorkspaceEvent.Interfaces;
 using MPTimerWorkspaceEvent.Models;
 
@@ -22,7 +23,7 @@ namespace MPTimerWeb.Controllers
         [HttpGet("/api/workspaceEvents")]
         public async Task<IEnumerable<WorkspaceEvent>> GetAll()
         {
-            return await _repository.GetAll();
+            return await _repository.GetAll(new WorkspaceEventFilter() { OnlyToday = true });
         }
 
         [HttpPost("/api/workspaceEvent")]
