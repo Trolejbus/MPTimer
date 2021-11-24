@@ -3,5 +3,6 @@
     public enum TrayWorkspaceEventType
     {
         ScreenLocked,
+        IdleTime,
     }
 }

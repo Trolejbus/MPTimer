@@ -31,19 +31,33 @@ export class WorkTimeLineComponent implements OnInit {
         })),
       },
       {
-        events: agents.map(agent => ({
-          id: `${agent.id}_lock-screen`,
-          name: 'Lock screen',
-          color: '#2A3132',
-          activities: workspaceEvents
-            .filter(event => event.type == WorkspaceEventType.ScreenLocked)
-            .filter(event => event.agentId == agent.id).map(event => ({
-              id: event.id,
-              from: event.from,
-              to: event.to,
-              notes: `Reason: ${event.data}`,
-            })),
-        })),
+        events: [
+          ...agents.map(agent => ({
+            id: `${agent.id}_lock-screen`,
+            name: 'Lock screen',
+            color: '#2A3132',
+            activities: workspaceEvents
+              .filter(event => event.type == WorkspaceEventType.ScreenLocked)
+              .filter(event => event.agentId == agent.id).map(event => ({
+                id: event.id,
+                from: event.from,
+                to: event.to,
+                notes: `Reason: ${event.data}`,
+              })),
+          })),
+          ...agents.map(agent => ({
+            id: `${agent.id}_idle-time`,
+            name: 'Idle time',
+            color: '#A8A8A8',
+            activities: workspaceEvents
+              .filter(event => event.type == WorkspaceEventType.IdleTime)
+              .filter(event => event.agentId == agent.id).map(event => ({
+                id: event.id,
+                from: event.from,
+                to: event.to,
+              })),
+          })),
+        ]
       },
     ])),
   )

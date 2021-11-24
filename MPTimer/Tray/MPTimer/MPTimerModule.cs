@@ -21,6 +21,7 @@ namespace MPTimer
             var configuration = confBuilder.Build();
 
             builder.RegisterType<TrayController>().As<TrayController>().As<IStartable>().SingleInstance();
+            builder.RegisterType<TimerController>().As<ITimerController>().As<IStartable>().SingleInstance();
             builder.RegisterType<WorkspaceEventsController>().As<IWorkspaceEventsController>().SingleInstance();
             builder.RegisterType<SignalRController>().As<ISignalRController>().SingleInstance();
             builder.RegisterType<WorkspaceEventService>().As<IWorkspaceEventService>().SingleInstance();
