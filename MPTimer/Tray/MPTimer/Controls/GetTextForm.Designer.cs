@@ -32,6 +32,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.okButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
+            this.hintsFlowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.SuspendLayout();
             // 
             // valueTextBox
@@ -54,7 +55,7 @@
             // 
             // okButton
             // 
-            this.okButton.Location = new System.Drawing.Point(228, 98);
+            this.okButton.Location = new System.Drawing.Point(227, 127);
             this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size(75, 23);
             this.okButton.TabIndex = 2;
@@ -64,7 +65,7 @@
             // 
             // cancelButton
             // 
-            this.cancelButton.Location = new System.Drawing.Point(309, 98);
+            this.cancelButton.Location = new System.Drawing.Point(308, 127);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
             this.cancelButton.TabIndex = 3;
@@ -72,11 +73,19 @@
             this.cancelButton.UseVisualStyleBackColor = true;
             this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
+            // hintsFlowLayoutPanel
+            // 
+            this.hintsFlowLayoutPanel.Location = new System.Drawing.Point(12, 62);
+            this.hintsFlowLayoutPanel.Name = "hintsFlowLayoutPanel";
+            this.hintsFlowLayoutPanel.Size = new System.Drawing.Size(371, 59);
+            this.hintsFlowLayoutPanel.TabIndex = 4;
+            // 
             // GetTextForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(395, 133);
+            this.ClientSize = new System.Drawing.Size(395, 162);
+            this.Controls.Add(this.hintsFlowLayoutPanel);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.okButton);
             this.Controls.Add(this.label1);
@@ -94,5 +103,6 @@
         private Label label1;
         private Button okButton;
         private Button cancelButton;
+        private FlowLayoutPanel hintsFlowLayoutPanel;
     }
 }

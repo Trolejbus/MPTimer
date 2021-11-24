@@ -1,10 +1,11 @@
-﻿using MPTimerWorkspaceEvent.Models;
+﻿using MPTimerWorkspaceEvent.Entities;
+using MPTimerWorkspaceEvent.Models;
 
 namespace MPTimerWorkspaceEvent.Interfaces
 {
     public interface IWorkspaceEventRepository
     {
-        Task<IEnumerable<WorkspaceEvent>> GetAll();
+        Task<IEnumerable<WorkspaceEvent>> GetAll(WorkspaceEventFilter? filter = null);
         Task<WorkspaceEvent> Add(WorkspaceEvent task);
         Task Remove(Guid id);
         Task<WorkspaceEvent> GetById(Guid id);

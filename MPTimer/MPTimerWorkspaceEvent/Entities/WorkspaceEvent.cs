@@ -1,6 +1,6 @@
 ﻿using MPTimerWorkspaceEvent.Enums;
 
-namespace MPTimerWorkspaceEvent.Models
+namespace MPTimerWorkspaceEvent.Entities
 {
     public class WorkspaceEvent
     {

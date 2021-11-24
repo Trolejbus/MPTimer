@@ -36,6 +36,7 @@ namespace MPTimer.Controllers
             var form = new GetTextForm()
             {
                 Label = "What have you done during screen lock?",
+                Hints = new[] { "Franek", "Kawa / Herbata / Siku", "Obiad" },
             };
             form.ShowDialog();
             workspaceEvent.Data = form.Value;

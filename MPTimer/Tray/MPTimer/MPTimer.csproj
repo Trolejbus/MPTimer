@@ -6,7 +6,12 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+    <ApplicationIcon>clock2.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="clock2.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Autofac" Version="6.3.0" />
