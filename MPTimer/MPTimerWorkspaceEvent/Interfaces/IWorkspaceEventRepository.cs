@@ -10,5 +10,6 @@ namespace MPTimerWorkspaceEvent.Interfaces
         Task Remove(Guid id);
         Task<WorkspaceEvent> GetById(Guid id);
         Task<WorkspaceEvent> Update(Guid id, WorkspaceEvent model);
+        Task TerminateAllAgentsEvents(Guid agentId);
     }
 }

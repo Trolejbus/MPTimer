@@ -52,5 +52,16 @@ namespace MPTimerWorkspaceEvent
             _context.WorkspaceEvents.Remove(model);
             await _context.SaveChangesAsync();
         }
+
+        public async Task TerminateAllAgentsEvents(Guid agentId)
+        {
+            var events = _context.WorkspaceEvents.Where(e => e.AgentId == agentId && e.To == null);
+            foreach (var e in events)
+            {
+                e.To = DateTime.UtcNow;
+            }
+
+            await _context.SaveChangesAsync();
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using MPTimerAgent.Interfaces;
+using MPTimerWorkspaceEvent.Interfaces;
 
 namespace MPTimerWeb.Hubs
 {
@@ -7,10 +8,14 @@ namespace MPTimerWeb.Hubs
     {
         private static Dictionary<string, string> Agents = new Dictionary<string, string>();
         private readonly IAgentRuntimesRepository _repository;
+        private readonly IWorkspaceEventRepository _workspaceEventRepository;
 
-        public AgentHub(IAgentRuntimesRepository repository)
+        public AgentHub(
+            IAgentRuntimesRepository repository,
+            IWorkspaceEventRepository workspaceEventRepository)
         {
             _repository = repository;
+            _workspaceEventRepository = workspaceEventRepository;
         }
 
         public override async Task OnConnectedAsync()
@@ -39,6 +44,7 @@ namespace MPTimerWeb.Hubs
             {
                 Agents.Remove(Context.ConnectionId);
                 await _repository.NotifyDisconnect(new Guid(agentId));
+                await _workspaceEventRepository.TerminateAllAgentsEvents(new Guid(agentId));
                 await NotifyAgentDisconnected(agentId);
             }
         }
