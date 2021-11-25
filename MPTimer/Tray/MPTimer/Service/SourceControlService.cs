@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using MPTimer.Interfaces;
 using MPTimer.Models;
+using RestSharp;
 
 namespace MPTimer.Service
 {
@@ -13,17 +14,20 @@ namespace MPTimer.Service
             _configuration = configuration;
         }
 
+        public void ChangeBranch(Guid sourceControlId, string branchName)
+        {
+            var client = new RestClient();
+            var request = new RestRequest($"{_configuration["BackendUrl"]}/api/sourceControl/{sourceControlId}/changeBranch/{branchName}", Method.PUT);
+            var response = client.Execute(request);
+        }
+
         public async Task<IEnumerable<TraySourceControl>> GetWatched()
         {
-            return await Task.FromResult(new List<TraySourceControl>()
-            {
-                new TraySourceControl(Guid.NewGuid(), "Creditboard", @"C:\sources\creditboard"),
-            });
-
-            /*var client = new RestClient();
-            var request = new RestRequest($"{_configuration["BackendUrl"]}/api/workspaceEvent", Method.POST).AddJsonBody(workspaceEvent);
-            var response = await client.ExecuteAsync<TrayWorkspaceEvent>(request);
-            return response.Data;*/
+            var client = new RestClient();
+            var request = new RestRequest($"{_configuration["BackendUrl"]}/api/sourceControls", Method.GET);
+            var response = client.Execute<IEnumerable<TraySourceControl>>(request);
+            await Task.CompletedTask;
+            return response.Data;
         }
     }
 }

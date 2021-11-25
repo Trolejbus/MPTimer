@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AgentRuntimeService, AgentService } from '@app/features/agents';
+import { SourceControlService } from '@app/features/source-control';
 import { WorkspaceEventService, WorkspaceEventType } from '@app/features/workspace-events';
 import { combineLatest, Observable } from 'rxjs';
 import { map, startWith, tap } from 'rxjs/operators';
@@ -16,8 +17,9 @@ export class WorkTimeLineComponent implements OnInit {
     this.agentService.entities$,
     this.agentRuntimeService.agentRuntimes$.pipe(startWith([])),
     this.workspaceEventService.workspaceEvents$.pipe(startWith([])),
+    this.sourceControlService.sourceControls$.pipe(startWith([])),
   ]).pipe(
-    map(([agents, runtimes, workspaceEvents]) => ([
+    map(([agents, runtimes, workspaceEvents, sourceControls]) => ([
       {
         events: agents.map(agent => ({
           id: `${agent.id}_runtime`,
@@ -57,8 +59,23 @@ export class WorkTimeLineComponent implements OnInit {
                 to: event.to,
               })),
           })),
-        ]
+        ],
       },
+      {
+        events: [
+          ...sourceControls.map(sourceControl => ({
+            id: `${sourceControl.id}_source-control`,
+            name: sourceControl.name,
+            color: '#336B87',
+            activities: sourceControl.statuses.map(status => ({
+              id: status.id,
+              from: status.from,
+              to: status.to,
+              notes: status.branchName,
+            })),
+          })),
+        ]
+      }
     ])),
   )
 
@@ -66,6 +83,7 @@ export class WorkTimeLineComponent implements OnInit {
     private agentRuntimeService: AgentRuntimeService,
     private agentService: AgentService,
     private workspaceEventService: WorkspaceEventService,
+    private sourceControlService: SourceControlService,
   ) { }
 
   ngOnInit(): void {

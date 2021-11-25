@@ -1,3 +1,4 @@
+using MPSourceControl;
 using MPTimerAgent;
 using MPTimerWeb.Hubs;
 using MPTimerWeb.Services;
@@ -26,6 +27,7 @@ builder.Services.AddHostedService<DisconnectAgentsService>();
 WorkTaskServices.ConfigureServices(builder.Services);
 WorkspaceEventServices.ConfigureServices(builder.Services);
 AgentServices.ConfigureServices(builder.Services);
+SourceControlServices.ConfigureServices(builder.Services);
 
 var app = builder.Build();
 

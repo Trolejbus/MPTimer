@@ -28,6 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MPSourceControl\MPSourceControl.csproj" />
     <ProjectReference Include="..\MPTimerAgent\MPTimerAgent.csproj" />
     <ProjectReference Include="..\MPTimerWorkspaceEvent\MPTimerWorkspaceEvent.csproj" />
     <ProjectReference Include="..\MPTimerWorkTask\MPTimerWorkTask.csproj" />

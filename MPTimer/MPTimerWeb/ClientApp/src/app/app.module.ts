@@ -37,6 +37,7 @@ const defaultDataServiceConfig: DefaultDataServiceConfig = {
       { path: 'work-tasks', loadChildren: () => import('./features/work-tasks/work-tasks.module').then(m => m.WorkTasksModule) },
       { path: 'agents', loadChildren: () => import('./features/agents/agents.module').then(m => m.AgentsModule) },
       { path: 'workspace-events', loadChildren: () => import('./features/workspace-events').then(m => m.WorkspaceEventsModule) },
+      { path: 'source-controls', loadChildren: () => import('./features/source-control').then(m => m.SourceControlModule) },
       { path: '**', redirectTo: 'dashboard' },
     ]),
     StoreModule.forRoot({}, {}),

@@ -10,6 +10,7 @@ namespace MPTimer.Components
         private readonly ISourceControlController _sourceControlController;
         private NotifyIcon notifyIcon;
         private ToolStripItem? signalRStatusItem;
+        private IEnumerable<TraySourceControl> sourceControls = new List<TraySourceControl>();
 
         public TrayController(ISignalRController signalRController, ISourceControlController sourceControlController)
         {
@@ -39,6 +40,7 @@ namespace MPTimer.Components
                 return;
             }
 
+            this.sourceControls = sourceControls;
             foreach (var sourceControl in sourceControls)
             {
                 currentMenu.Items.Insert(2, new ToolStripMenuItem(sourceControl.Name)
@@ -67,17 +69,18 @@ namespace MPTimer.Components
             }
         }
 
-        private static void UpdateSourceControlStatuses(IEnumerable<TraySourceControlStatus> sourceControlStatuses, ContextMenuStrip currentMenu)
+        private void UpdateSourceControlStatuses(IEnumerable<TraySourceControlStatus> sourceControlStatuses, ContextMenuStrip currentMenu)
         {
             foreach (var status in sourceControlStatuses)
             {
-                var item = currentMenu.Items.Find(status.SourceControl.Id.ToString(), false).FirstOrDefault();
+                var sourceControl = sourceControls.First(s => s.Id == status.SourceControlId);
+                var item = currentMenu.Items.Find(status.SourceControlId.ToString(), false).FirstOrDefault();
                 if (item == null)
                 {
                     break;
                 }
 
-                item.Text = $"{status.SourceControl.Name} - {status.Branch}";
+                item.Text = $"{sourceControl.Name} - {status.BranchName}";
             }
         }
 

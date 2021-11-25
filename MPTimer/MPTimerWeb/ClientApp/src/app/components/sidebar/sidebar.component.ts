@@ -14,18 +14,23 @@ export class SidebarComponent implements OnInit {
   private items$: Observable<SidebarItem[]> = of([
     {
       label: 'Dashboard',
-      icon: 'fa-chart-line',
+      icon: 'fa fa-chart-line',
       link: '',
     },
     {
       label: 'Work Tasks',
-      icon: 'fa-clipboard-list',
+      icon: 'fa fa-clipboard-list',
       link: 'work-tasks',
     },
     {
       label: 'Agents',
-      icon: 'fa-network-wired',
+      icon: 'fa fa-network-wired',
       link: 'agents',
+    },
+    {
+      label: 'Source Controls',
+      icon: 'fab fa-git-alt',
+      link: 'source-controls',
     }
   ]);
 

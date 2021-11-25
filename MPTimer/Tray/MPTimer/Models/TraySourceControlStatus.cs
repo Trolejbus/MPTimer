@@ -2,12 +2,22 @@
 {
     internal class TraySourceControlStatus
     {
-        public TraySourceControl SourceControl { get; set; }
-        public string? Branch { get; set; }
+        public Guid SourceControlId { get; set; }
+        public DateTime From { get; set; }
+        public DateTime? To { get; set; }
+        public string BranchName { get; set; }
 
-        public TraySourceControlStatus(TraySourceControl sourceControl)
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+        public TraySourceControlStatus()
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         {
-            SourceControl = sourceControl;
+        }
+
+        public TraySourceControlStatus(Guid sourceControlId, DateTime from, string branchName)
+        {
+            SourceControlId = sourceControlId;
+            From = from;
+            BranchName = branchName;
         }
     }
 }

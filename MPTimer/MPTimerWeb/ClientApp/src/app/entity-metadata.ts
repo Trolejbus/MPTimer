@@ -4,6 +4,7 @@ const entityMetadata: EntityMetadataMap = {
   WorkTask: {},
   Agent: {},
   WorkspaceEvent: {},
+  SourceControl: {},
 };
 
 const pluralNames = {  };

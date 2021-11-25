@@ -49,10 +49,9 @@ namespace MPTimer.Controllers
                 fileSystemWatcher.Renamed += (_, e) => OnRenamed(sourceControl.Id, sourceControl.Path);
                 fileSystemWatcher.EnableRaisingEvents = true;
                 fileSystemWatchers.Add(fileSystemWatcher);
-                sourceControlStatuses.Add(new TraySourceControlStatus(sourceControl)
-                {
-                    Branch = GetBranch(sourceControl.Path),
-                });
+                var status = new TraySourceControlStatus(sourceControl.Id, DateTime.UtcNow, GetBranch(sourceControl.Path));
+                sourceControlStatuses.Add(status);
+                _sourceControlService.ChangeBranch(sourceControl.Id, status.BranchName);
             }
 
             SourceControlStatusUpdated?.Invoke(sourceControlStatuses);
@@ -61,12 +60,14 @@ namespace MPTimer.Controllers
         private void OnRenamed(Guid id, string path)
         {
             var branch = GetBranch(path);
-            sourceControlStatuses.First(s => s.SourceControl.Id == id).Branch = branch;
+            sourceControlStatuses.First(s => s.SourceControlId == id).BranchName = branch;
             SourceControlStatusUpdated?.Invoke(sourceControlStatuses);
+            _sourceControlService.ChangeBranch(id, branch);
         }
 
-        private string GetBranch(string path)
+        private static string GetBranch(string path)
         {
+            Thread.Sleep(1000);
             var content = File.ReadAllText(Path.Combine(path, ".git/HEAD"));
             content = content.TrimStart("ref: refs/").TrimEnd('\n');
             return content.TrimStart("heads/");

@@ -1,0 +1,33 @@
+<div class="page-wrapper" *ngIf="(vm$ | async) as vm">
+    <p-toolbar>
+        <div class="p-toolbar-group-left">
+            <p-button label="New" icon="pi pi-plus" [routerLink]="['/source-controls/form']"></p-button>
+            
+        </div>
+        
+        <div class="p-toolbar-group-right">
+            
+        </div>
+    </p-toolbar>
+
+    <div class="source-control-list">
+        <div *ngFor="let sourceControl of vm.sourceControls" class="source-control-item">
+            <div class="info">
+                <div class="name">
+                    {{ sourceControl.name }}
+
+                    <p-tag
+                        *ngIf="getActiveBranch(sourceControl) as activeBranch"
+                        [value]="activeBranch"
+                        severity="success">
+                    </p-tag>
+                </div>
+                <div class="type">{{ sourceControl.id }}</div>
+            </div>
+            <div class="actions">
+                <button pButton (click)="remove(sourceControl)" type="button" icon="pi pi-trash" class="p-button-sm p-button-text p-button-danger"></button>
+                <button pButton [routerLink]="['/source-controls/form', sourceControl.id]" type="button" icon="pi pi-pencil" class="p-button-sm p-button-text"></button>
+            </div>
+        </div>
+    </div>
+</div>

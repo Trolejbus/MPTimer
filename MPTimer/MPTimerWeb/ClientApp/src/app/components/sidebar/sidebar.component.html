@@ -1,7 +1,7 @@
 <div class="sidebar" *ngIf="(vm$ | async) as vm" [class.expanded]="vm.expanded">
     <div class="sidebar-content">
         <div class="sidebar-item" *ngFor="let item of vm.items" [routerLink]="[item.link]">
-            <i class="icon fa" [ngClass]="item.icon"></i>
+            <i class="icon" [ngClass]="item.icon"></i>
             <div class="text">{{ item.label }}</div>
         </div>
         <div class="pull-down"></div>
