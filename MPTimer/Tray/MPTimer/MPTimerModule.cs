@@ -25,6 +25,8 @@ namespace MPTimer
             builder.RegisterType<WorkspaceEventsController>().As<IWorkspaceEventsController>().SingleInstance();
             builder.RegisterType<SignalRController>().As<ISignalRController>().SingleInstance();
             builder.RegisterType<WorkspaceEventService>().As<IWorkspaceEventService>().SingleInstance();
+            builder.RegisterType<SourceControlController>().As<ISourceControlController>().As<IStartableAsync>().SingleInstance();
+            builder.RegisterType<SourceControlService>().As<ISourceControlService>().SingleInstance();
             builder.RegisterInstance(configuration).As<IConfiguration>().SingleInstance();
         }
     }

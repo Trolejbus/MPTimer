@@ -1,16 +1,17 @@
 ﻿using Autofac;
 using MPTimer.Interfaces;
+using MPTimer.Models;
 
 namespace MPTimer.Components
 {
     internal class TrayController : IStartable
     {
         private readonly ISignalRController _signalRController;
-
+        private readonly ISourceControlController _sourceControlController;
         private NotifyIcon notifyIcon;
         private ToolStripItem? signalRStatusItem;
 
-        public TrayController(ISignalRController signalRController)
+        public TrayController(ISignalRController signalRController, ISourceControlController sourceControlController)
         {
             notifyIcon = new NotifyIcon()
             {
@@ -18,6 +19,7 @@ namespace MPTimer.Components
                 Visible = true
             };
             _signalRController = signalRController;
+            _sourceControlController = sourceControlController;
         }
 
         public void Start()
@@ -25,6 +27,58 @@ namespace MPTimer.Components
             var contextMenu = CreateContextMenu();
             notifyIcon.ContextMenuStrip = contextMenu;
             _signalRController.StatusChanged += _signalRController_StatusChanged;
+            _sourceControlController.SourceControlLoaded += _sourceControlController_SourceControlLoaded;
+            _sourceControlController.SourceControlStatusUpdated += _sourceControlController_SourceControlStatusUpdated;
+        }
+
+        private void _sourceControlController_SourceControlLoaded(IEnumerable<TraySourceControl> sourceControls)
+        {
+            var currentMenu = notifyIcon.ContextMenuStrip;
+            if (currentMenu == null)
+            {
+                return;
+            }
+
+            foreach (var sourceControl in sourceControls)
+            {
+                currentMenu.Items.Insert(2, new ToolStripMenuItem(sourceControl.Name)
+                {
+                    Enabled = false,
+                    Name = sourceControl.Id.ToString(),
+                });
+            }
+        }
+
+        private void _sourceControlController_SourceControlStatusUpdated(IEnumerable<TraySourceControlStatus> sourceControlStatuses)
+        {
+            var currentMenu = notifyIcon.ContextMenuStrip;
+            if (currentMenu == null)
+            {
+                return;
+            }
+
+            if (notifyIcon.ContextMenuStrip.InvokeRequired)
+            {
+                notifyIcon.ContextMenuStrip.BeginInvoke(new MethodInvoker(() => UpdateSourceControlStatuses(sourceControlStatuses, currentMenu)));
+            }
+            else
+            {
+                UpdateSourceControlStatuses(sourceControlStatuses, currentMenu);
+            }
+        }
+
+        private static void UpdateSourceControlStatuses(IEnumerable<TraySourceControlStatus> sourceControlStatuses, ContextMenuStrip currentMenu)
+        {
+            foreach (var status in sourceControlStatuses)
+            {
+                var item = currentMenu.Items.Find(status.SourceControl.Id.ToString(), false).FirstOrDefault();
+                if (item == null)
+                {
+                    break;
+                }
+
+                item.Text = $"{status.SourceControl.Name} - {status.Branch}";
+            }
         }
 
         private void _signalRController_StatusChanged(Enums.SignalRConnectionStatus obj)
@@ -43,6 +97,7 @@ namespace MPTimer.Components
             signalRStatusItem = new ToolStripMenuItem(_signalRController.Status.ToString());
             signalRStatusItem.Enabled = false;
             menu.Items.Add(signalRStatusItem);
+            menu.Items.Add("-");
             menu.Items.Add("-");
             menu.Items.Add("Close", null, (s, e) => { Application.Exit(); });
             return menu;

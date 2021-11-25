@@ -11,18 +11,24 @@ namespace MPTimer
         ///  The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        static async Task Main()
         {
             ApplicationConfiguration.Initialize();
 
             var container = new MPTimerContainerFactory().Build();
             using (var scope = container.BeginLifetimeScope())
             {
+                var startableAsync = scope.Resolve<IEnumerable<IStartableAsync>>();
+                foreach (var startable in startableAsync)
+                {
+                    await startable.StartAsync();
+                }
+
                 var configuration = scope.Resolve<IConfiguration>();
                 var workspaceController = scope.Resolve<IWorkspaceEventsController>();
                 var signalRController = scope.Resolve<ISignalRController>();
 
-                signalRController.Connect();
+                _ = signalRController.Connect();
                 SystemEvents.SessionSwitch += SystemEvents_SessionSwitch(workspaceController);
                 Application.Run();
             }
