@@ -10,5 +10,6 @@ namespace MPSourceControl.Interfaces
         Task<SourceControl> GetById(Guid id);
         Task<SourceControl> Update(Guid id, SourceControl model);
         Task<SourceControl> ChangeBranch(Guid id, string branch);
+        Task TerminateAllSourceControls(Guid agentIdGuid);
     }
 }
