@@ -49,10 +49,10 @@ namespace MPTimerWeb.Controllers
             await _repository.Remove(id);
         }
 
-        [HttpPut("/api/sourceControl/{id}/changeBranch/{branch}")]
-        public async Task<SourceControl> ChangeBranch([FromRoute] Guid id, [FromRoute] string branch)
+        [HttpPut("/api/sourceControl/{id}/changeBranch")]
+        public async Task<SourceControl> ChangeBranch([FromRoute] Guid id, [FromQuery] string branchName)
         {
-            var result = await _repository.ChangeBranch(id, branch);
+            var result = await _repository.ChangeBranch(id, branchName);
             await _hub.Clients.Group("Frontends").SendAsync("SourceControlBranchChanged", id);
             return result;
         }
