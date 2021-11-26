@@ -56,7 +56,7 @@ namespace MPSourceControl
                 .FirstAsync(t => t.Id == id);
             foreach (var status in model.Statuses!)
             {
-                status.To = status.To ?? DateTime.UtcNow;
+                status.To ??= DateTime.UtcNow;
             }
 
             var newStatus = new SourceControlStatus(Guid.NewGuid(), branchName, DateTime.UtcNow, id);
@@ -73,7 +73,7 @@ namespace MPSourceControl
                 .ToListAsync();
             foreach (var status in models.SelectMany(s => s.Statuses!))
             {
-                status.To = status.To ?? DateTime.UtcNow;
+                status.To ??= DateTime.UtcNow;
             }
 
             await _context.SaveChangesAsync();
