@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.SignalR;
+using MPSourceControl.Interfaces;
 using MPTimerAgent.Interfaces;
 using MPTimerWorkspaceEvent.Interfaces;
 
@@ -9,13 +10,16 @@ namespace MPTimerWeb.Hubs
         private static Dictionary<string, string> Agents = new Dictionary<string, string>();
         private readonly IAgentRuntimesRepository _repository;
         private readonly IWorkspaceEventRepository _workspaceEventRepository;
+        private readonly ISourceControlRepository _sourceControlRepository;
 
         public AgentHub(
             IAgentRuntimesRepository repository,
-            IWorkspaceEventRepository workspaceEventRepository)
+            IWorkspaceEventRepository workspaceEventRepository,
+            ISourceControlRepository sourceControlRepository)
         {
             _repository = repository;
             _workspaceEventRepository = workspaceEventRepository;
+            _sourceControlRepository = sourceControlRepository;
         }
 
         public override async Task OnConnectedAsync()
@@ -43,8 +47,10 @@ namespace MPTimerWeb.Hubs
             if (!string.IsNullOrEmpty(agentId))
             {
                 Agents.Remove(Context.ConnectionId);
-                await _repository.NotifyDisconnect(new Guid(agentId));
-                await _workspaceEventRepository.TerminateAllAgentsEvents(new Guid(agentId));
+                var agentIdGuid = new Guid(agentId);
+                await _repository.NotifyDisconnect(agentIdGuid);
+                await _workspaceEventRepository.TerminateAllAgentsEvents(agentIdGuid);
+                await _sourceControlRepository.TerminateAllSourceControls(agentIdGuid);
                 await NotifyAgentDisconnected(agentId);
             }
         }

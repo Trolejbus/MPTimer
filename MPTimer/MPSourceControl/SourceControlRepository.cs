@@ -64,5 +64,19 @@ namespace MPSourceControl
             await _context.SaveChangesAsync();
             return model;
         }
+
+        public async Task TerminateAllSourceControls(Guid agentIdGuid)
+        {
+            var models = await _context.SourceControl
+                .Where(s => s.AgentId == agentIdGuid)
+                .Include(s => s.Statuses)
+                .ToListAsync();
+            foreach (var status in models.SelectMany(s => s.Statuses!))
+            {
+                status.To = status.To ?? DateTime.UtcNow;
+            }
+
+            await _context.SaveChangesAsync();
+        }
     }
 }
