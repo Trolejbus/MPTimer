@@ -1,6 +1,7 @@
 using Autofac;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Win32;
+using MPTimer.Controls;
 using MPTimer.Interfaces;
 
 namespace MPTimer
@@ -14,7 +15,6 @@ namespace MPTimer
         static async Task Main()
         {
             ApplicationConfiguration.Initialize();
-
             var container = new MPTimerContainerFactory().Build();
             using (var scope = container.BeginLifetimeScope())
             {

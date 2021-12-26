@@ -17,8 +17,8 @@ namespace MPTimer.Service
         public void ChangeBranch(Guid sourceControlId, string branchName)
         {
             var client = new RestClient();
-            var request = new RestRequest($"{_configuration["BackendUrl"]}/api/sourceControl/{sourceControlId}/changeBranch", Method.PUT);
-            request.AddQueryParameter("branchName", branchName);
+            IRestRequest request = new RestRequest($"{_configuration["BackendUrl"]}/api/sourceControl/{sourceControlId}/changeBranch", Method.PUT);
+            request = request.AddQueryParameter("branchName", branchName);
             var response = client.Execute(request);
         }
 

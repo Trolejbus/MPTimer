@@ -11,6 +11,8 @@
         public string? Value { get; set; }
 
         private IEnumerable<string> hints = new List<string>();
+        private OpacityForm opacityForm;
+
         public IEnumerable<string> Hints
         {
             get => hints;
@@ -23,25 +25,32 @@
         public GetTextForm()
         {
             InitializeComponent();
-            BringToFront();
+            opacityForm = new OpacityForm();
+            BackColor = Color.LimeGreen;
+            TransparencyKey = Color.LimeGreen;
+            valueTextBox.Focus();
+        }
+
+        protected override void OnMouseEnter(EventArgs e)
+        {
+            base.OnMouseEnter(e);
         }
 
         protected override void OnShown(EventArgs e)
         {
             base.OnShown(e);
+            Cursor.Clip = Bounds;
+            BringToFront();
+            opacityForm.Show();
+            opacityForm.BringToFront();
             BringToFront();
         }
 
-        private void okButton_Click(object sender, EventArgs e)
+        protected override void OnClosed(EventArgs e)
         {
-            Accept(valueTextBox.Text);
-        }
-
-        private void cancelButton_Click(object sender, EventArgs e)
-        {
-            Value = null;
-            DialogResult = DialogResult.Cancel;
-            Close();
+            base.OnClosed(e);
+            Cursor.Clip = Rectangle.Empty;
+            opacityForm.Close();
         }
 
         private void CreateHintsButtons()
@@ -52,6 +61,9 @@
                 var button = new Button()
                 {
                     Text = hint,
+                    BackColor = Color.White,
+                    Font = new Font("Segoe UI", 24F, FontStyle.Regular, GraphicsUnit.Point),
+                    AutoSize = true,
                 };
                 button.Click += (s, e) => Accept(hint);
                 hintsFlowLayoutPanel.Controls.Add(button);
@@ -63,6 +75,25 @@
             Value = text;
             DialogResult = DialogResult.OK;
             Close();
+        }
+
+        private void valueTextBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (valueTextBox.Text == "")
+                {
+                    return;
+                }
+
+                Accept(valueTextBox.Text);
+            }
+            else if(e.KeyCode == Keys.Escape)
+            {
+                Value = null;
+                DialogResult = DialogResult.Cancel;
+                Close();
+            }
         }
     }
 }
