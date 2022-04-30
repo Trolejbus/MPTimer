@@ -29,6 +29,11 @@ namespace MPTimerWeb.Hubs
             var agentId = httpContext.Request.Query["agentId"].ToString();
             if (!string.IsNullOrEmpty(agentId))
             {
+                if (Agents.TryGetValue(agentId, out _))
+                {
+                    throw new Exception("Agent is already connected");
+                }
+
                 Agents.Add(Context.ConnectionId, agentId);
                 await Groups.AddToGroupAsync(Context.ConnectionId, "Agents");
                 await _repository.NotifyConnect(new Guid(agentId));

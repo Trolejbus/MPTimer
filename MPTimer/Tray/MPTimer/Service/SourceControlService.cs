@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
+using MPTimer.Exceptions;
 using MPTimer.Interfaces;
 using MPTimer.Models;
 using RestSharp;
@@ -26,8 +27,12 @@ namespace MPTimer.Service
         {
             var client = new RestClient();
             var request = new RestRequest($"{_configuration["BackendUrl"]}/api/sourceControls", Method.GET);
-            var response = client.Execute<IEnumerable<TraySourceControl>>(request);
-            await Task.CompletedTask;
+            var response = await client.ExecuteAsync<IEnumerable<TraySourceControl>>(request);
+            if (!response.IsSuccessful)
+            {
+                throw new ExternalServiceException(response);
+            }
+
             return response.Data;
         }
     }
