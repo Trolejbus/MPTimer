@@ -4,6 +4,19 @@
     .chart-wrapper {
         width: 100px;
         flex: 0 0 auto;
+        position: relative;
+
+        .time-worked {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            cursor: default;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
     }
 
     .timers-wrapper {

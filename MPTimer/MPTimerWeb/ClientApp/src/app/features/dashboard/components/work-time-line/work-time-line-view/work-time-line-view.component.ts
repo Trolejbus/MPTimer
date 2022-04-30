@@ -1,8 +1,8 @@
 import { AfterViewInit, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
-import { ChangeDetectionStrategy, Component, ElementRef, Input, OnInit, ViewChildren } from '@angular/core';
-import { DateUtils } from '@app/shared';
+import { ChangeDetectionStrategy, Component, ElementRef, Input, OnInit } from '@angular/core';
+import { DateUtils, TimeSpan } from '@app/shared';
 import { BehaviorSubject, combineLatest, interval, Subject } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { WorkTimeLineActivityModel, WorkTimeLineEventModel, WorkTimeLineSectionModel } from '../models';
 
 @Component({
@@ -55,14 +55,9 @@ export class WorkTimeLineViewComponent implements OnInit, OnChanges, AfterViewIn
         return seconds + previous;
       }, 0);
 
-      const hour = Math.floor(totalSeconds / 3600);
-      const minute = Math.floor((totalSeconds - hour * 3600) / 60);
-      const second = totalSeconds - hour * 3600 - minute * 60;
       return {
         eventId: event.id,
-        total: {
-          hour, minute, second
-        },
+        total: TimeSpan.createFromSeconds(totalSeconds),
         isWorking: event.activities.some(a => a.to == null),
       };
     })),
@@ -98,7 +93,7 @@ export class WorkTimeLineViewComponent implements OnInit, OnChanges, AfterViewIn
   public mousePosition$ = new BehaviorSubject({
     x: 0,
     y :0,
-    time: { hour: 0, minute: 0, second: 0 },
+    time: TimeSpan.empty(),
   });
 
   constructor() { }
@@ -150,12 +145,12 @@ export class WorkTimeLineViewComponent implements OnInit, OnChanges, AfterViewIn
     return `${event.name}
       From: ${DateUtils.format(activity.from)}
       To: ${activity.to != null ? DateUtils.format(activity.to) : 'Still working'}
-      Total: ${this.formatTime(diffrence)}${activity.notes != null ? `\n${activity.notes}` : ''}`;
+      Total: ${diffrence.format()}${activity.notes != null ? `\n${activity.notes}` : ''}`;
   }
 
   public getEventTime(vm: any, event: WorkTimeLineEventModel): string {
     const total = vm.eventTimes.find((e: any) => e.eventId === event.id).total;
-    return this.formatTime(total);
+    return total.format();
   }
 
   public getEventIsWorking(vm: any, event: WorkTimeLineEventModel): boolean {
@@ -192,34 +187,16 @@ export class WorkTimeLineViewComponent implements OnInit, OnChanges, AfterViewIn
     const hourIndex = Math.floor(x / hourWidth);
     const hour = hourIndex + minHour - 1;
     const minute = Math.floor((x - hourIndex * hourWidth) / hourWidth * 60);
-    return { hour, minute, second: 0 };
-  }
-
-  public formatTime(timeSpan: TimeSpan, showSeconds = true): string {
-    let result = timeSpan.hour < 10 ? `0${timeSpan.hour}` : timeSpan.hour.toString();
-    result += ':' + (timeSpan.minute < 10 ? `0${timeSpan.minute}` : timeSpan.minute.toString());
-    return result += showSeconds ? ':' + (timeSpan.second < 10 ? `0${timeSpan.second}` : timeSpan.second.toString()) : '';
+    return new TimeSpan(hour, minute, 0);
   }
 
   private getDiffrence(date1: Date, date2?: Date): TimeSpan {
     var diff = (date2 ?? new Date()).getTime() - date1.getTime();
     var seconds = Math.floor(diff / 1000);
-
-    const hour = Math.floor(seconds / 3600);
-    const minute = Math.floor((seconds - hour * 3600) / 60);
-    const second = seconds - hour * 3600 - minute * 60;
-    return {
-      hour, minute, second
-    };
+    return TimeSpan.createFromSeconds(seconds);
   }
 
   private selectMany<T, F>(src: T[], fn: (arg: T) => F[]): F[] {
     return src.reduce((current, previous) => current.concat(fn(previous)), [] as F[]);
   }
-}
-
-class TimeSpan {
-  public hour!: number;
-  public minute!: number;
-  public second!: number;
 }

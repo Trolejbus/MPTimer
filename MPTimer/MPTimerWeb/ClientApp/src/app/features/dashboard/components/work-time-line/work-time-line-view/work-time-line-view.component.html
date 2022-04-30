@@ -20,7 +20,7 @@
 
             <ng-container *ngIf="currentTimeVisible$ | async">
                 <div *ngIf="(mousePosition$ | async) as mousePosition" class="currentTimeLine" [ngStyle]="{ 'left.px': mousePosition.x + 120 }">
-                    <div class="time">{{ formatTime(mousePosition.time, false) }}</div>
+                    <div class="time">{{ mousePosition.time.format(false) }}</div>
                     <div class="line"></div>
                 </div>
             </ng-container>
@@ -52,7 +52,7 @@
                         [ngStyle]="getActivityStyles(activity, event, vm)"
                     >
                         <div class="time-container">
-                            <div class="time">{{ formatTime(getActivityTime(activity, vm)) }}</div>
+                            <div class="time">{{ getActivityTime(activity, vm).format() }}</div>
                         </div>
                         <div
                             class="bar"
@@ -65,27 +65,4 @@
             </div>
         </ng-container>
     </ng-container>
-
-    <!--<table #table>
-        <tr>
-            <th class="task" #taskColumn></th>
-           
-        </tr>
-        
-            <tr class="event" *ngFor="let event of section.events">
-                
-                <td
-                    class="hour-column"
-                    *ngFor="let a of hourArray; let i = index"
-                    [class.first]="i === 0"
-                    (mouseenter)="mouseEnter()"
-                    (mouseleave)="mouseLeave()"
-                    (mousemove)="mouseMove($event, table)"
-                >
-                </td>
-            </tr>
-        </ng-container>
-
-        
-    </table>-->
 </div>

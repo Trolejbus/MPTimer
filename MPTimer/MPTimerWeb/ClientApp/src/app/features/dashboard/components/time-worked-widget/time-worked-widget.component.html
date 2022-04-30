@@ -1,24 +1,25 @@
-<div class="time-worked-widget">
+<div class="time-worked-widget" *ngIf="vm$ | async as vm">
     <div class="chart-wrapper">
-        <p-chart type="doughnut" [options]="chartOptions" [data]="data" width="100px"></p-chart>
+        <p-chart type="doughnut" [options]="chartOptions" [data]="vm.chartData" width="100px"></p-chart>
+        <div class="time-worked">{{ formatTime(vm.workTime) }}</div>
     </div>
     <div class="timers-wrapper">
         <table>
             <tr>
-                <td class="timer-label">Work time:</td>
-                <td>00:00:00</td>
+                <td class="timer-label">Current time:</td>
+                <td>{{ vm.currentTime | date:'HH:mm:ss' }}</td>
             </tr>
             <tr>
                 <td class="timer-label">Break time:</td>
-                <td>00:00:00</td>
+                <td>{{ formatTime(vm.breakTime) }}</td>
             </tr>
             <tr>
                 <td class="timer-label">Started at:</td>
-                <td>00:00:00</td>
+                <td>{{ vm.startedAt | date:'HH:mm:ss' ?? '-' }}</td>
             </tr>
             <tr>
-                <td class="timer-label">Finished at:</td>
-                <td>00:00:00</td>
+                <td class="timer-label">Estimated finish:</td>
+                <td>{{ vm.plannedFinishedAt | date:'HH:mm:ss' }}</td>
             </tr>
         </table>
     </div>
