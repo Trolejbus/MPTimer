@@ -1,9 +1,10 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { AgentRuntimeDto, AgentRuntimeService } from '@app/features';
 import { WorkspaceEventDto, WorkspaceEventService } from '@app/features/workspace-events';
+import { LayoutService } from '@app/services';
 import { TimeSpan } from '@app/shared';
 import { combineLatest, interval } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
+import { map, startWith, tap } from 'rxjs/operators';
 
 const BREAK_PER_HOUR_IN_SECONDS = 375;
 const HOURS_PER_DAY = 8;
@@ -33,26 +34,21 @@ export class TimeWorkedWidgetComponent implements OnInit {
     ],  
   };
 
-  public chartOptions = {
-    cutout: '80%',
-    plugins: {
-      legend: {
-        display: false,
-      },
-      tooltip: {
-        enabled: false,
-      }
-    },
-  };
-
   public vm$ = combineLatest([
     this.agentRuntimeService.agentRuntimes$.pipe(startWith([])),
     this.workspaceEventService.workspaceEvents$.pipe(startWith([])),
+    this.layoutService.sizeMode$.pipe(
+      map(sizeMode => ({
+        chartSize: this.getChartSize(sizeMode),
+        chartOptions: this.getChartOptions(sizeMode),
+      })),
+    ),
     interval(1000).pipe(startWith(0)),
   ]).pipe(
-    map(([runtimes, workspaceEvents]) => ({
+    map(([runtimes, workspaceEvents, charts]) => ({
       runtimes: runtimes.sort((a, b) => a.from > b.from ? 1 : (a.from < b.from ? -1 : 0)),
       workspaceEvents,
+      ...charts,
     })),
     map((vm) => ({
       ...vm,
@@ -60,6 +56,7 @@ export class TimeWorkedWidgetComponent implements OnInit {
       finishedAt: this.getFinishedAt(vm.runtimes),
       breakTime: this.getBreakTime(vm.runtimes, vm.workspaceEvents),
       currentTime: new Date(),
+      
     })),
     map((vm) => ({
       ...vm,
@@ -70,11 +67,13 @@ export class TimeWorkedWidgetComponent implements OnInit {
       ...vm,
       chartData: this.getChartData(vm.workTime),
     })),
+    tap(vm => console.log(vm)),
   );
 
   constructor(
     private agentRuntimeService: AgentRuntimeService,
     private workspaceEventService: WorkspaceEventService,
+    private layoutService: LayoutService,
   ) { }
 
   ngOnInit(): void {
@@ -160,6 +159,29 @@ export class TimeWorkedWidgetComponent implements OnInit {
     const timeToWork = new TimeSpan(8, 0, 0).totalSeconds() - workTime.totalSeconds();
     this.data.datasets[0].data = [Math.max(0, timeToWork), workTime.totalSeconds()];
     return this.data;
+  }
+
+  private getChartSize(sizeMode: 'phone' | 'tablet' | 'desktop'): number {
+    if (sizeMode === 'phone') {
+      return 300;
+    }
+    else {
+      return 100;
+    }
+  }
+
+  private getChartOptions(sizeMode: 'phone' | 'tablet' | 'desktop'): any {
+    return {
+      cutout: sizeMode === 'phone' ? '90%' : '80%',
+      plugins: {
+        legend: {
+          display: false,
+        },
+        tooltip: {
+          enabled: false,
+        }
+      },
+    };
   }
 }
 

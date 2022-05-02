@@ -1,8 +1,11 @@
+@import "variables";
+
 .dashboard-row {
     margin: 50px;
     display: flex;
     gap: 50px;
     justify-content: stretch;
+    flex-wrap: wrap;
 
     .section {
         flex: 1 1 200px;
@@ -12,3 +15,18 @@
     }
 }
 
+@media (max-width: $phoneSize) {
+    .dashboard-row {
+        margin: 0;
+        display: block;
+
+        .section {
+            box-shadow: none;
+            padding: 0;
+
+            &.time-worked {
+                height: calc(100vh - 50px);
+            }
+        }
+    }
+}

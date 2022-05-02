@@ -1,6 +1,6 @@
 <div class="time-worked-widget" *ngIf="vm$ | async as vm">
     <div class="chart-wrapper">
-        <p-chart type="doughnut" [options]="chartOptions" [data]="vm.chartData" width="100px"></p-chart>
+        <p-chart type="doughnut" [options]="vm.chartOptions" [data]="vm.chartData" [width]="vm.chartSize + 'px'"></p-chart>
         <div class="time-worked">{{ formatTime(vm.workTime) }}</div>
     </div>
     <div class="timers-wrapper">
@@ -15,7 +15,7 @@
             </tr>
             <tr>
                 <td class="timer-label">Started at:</td>
-                <td>{{ vm.startedAt | date:'HH:mm:ss' ?? '-' }}</td>
+                <td>{{ vm.startedAt != null ? (vm.startedAt | date:'HH:mm:ss') : '-' }}</td>
             </tr>
             <tr>
                 <td class="timer-label">Estimated finish:</td>

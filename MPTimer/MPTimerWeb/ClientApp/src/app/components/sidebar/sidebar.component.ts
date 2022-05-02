@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { BehaviorSubject, combineLatest, Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { LayoutService } from '@app/services';
+import { BehaviorSubject, combineLatest, merge, Observable, of } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-sidebar',
@@ -10,7 +11,6 @@ import { map } from 'rxjs/operators';
 })
 export class SidebarComponent implements OnInit {
 
-  private expand$ = new BehaviorSubject<boolean>(true);
   private items$: Observable<SidebarItem[]> = of([
     {
       label: 'Dashboard',
@@ -34,8 +34,9 @@ export class SidebarComponent implements OnInit {
     }
   ]);
 
+
   public vm$ = combineLatest([
-    this.expand$,
+    this.layoutService.toggleMenu$,
     this.items$,
   ]).pipe(
     map(([expanded, items]) => ({
@@ -43,13 +44,13 @@ export class SidebarComponent implements OnInit {
     })),
   );
 
-  constructor() { }
+  constructor(private layoutService: LayoutService) { }
 
   ngOnInit(): void {
   }
 
   public toggleExpand(): void {
-    this.expand$.next(!this.expand$.value);
+    this.layoutService.toggleMenu();
   }
 }
 

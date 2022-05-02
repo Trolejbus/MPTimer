@@ -5,8 +5,16 @@ $currentTimeSize: 20px;
 $activityHeight: 10px;
 $eventInfoColumn: 120px;
 
+.scrollable-wrapper {
+    width: 0;
+}
+
 .work-time-line-container {
     position: relative;
+}
+
+.scroll {
+    overflow-x: auto;
 }
 
 .time-line-row {

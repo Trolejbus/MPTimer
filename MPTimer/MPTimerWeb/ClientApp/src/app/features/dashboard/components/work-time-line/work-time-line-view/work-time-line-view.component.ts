@@ -2,7 +2,7 @@ import { AfterViewInit, OnChanges, SimpleChanges, ViewChild } from '@angular/cor
 import { ChangeDetectionStrategy, Component, ElementRef, Input, OnInit } from '@angular/core';
 import { DateUtils, TimeSpan } from '@app/shared';
 import { BehaviorSubject, combineLatest, interval, Subject } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, startWith, tap } from 'rxjs/operators';
 import { WorkTimeLineActivityModel, WorkTimeLineEventModel, WorkTimeLineSectionModel } from '../models';
 
 @Component({
@@ -11,7 +11,7 @@ import { WorkTimeLineActivityModel, WorkTimeLineEventModel, WorkTimeLineSectionM
   styleUrls: ['./work-time-line-view.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class WorkTimeLineViewComponent implements OnInit, OnChanges, AfterViewInit {
+export class WorkTimeLineViewComponent implements OnInit, OnChanges {
 
   @Input()
   public sections: WorkTimeLineSectionModel[] = [];
@@ -65,21 +65,35 @@ export class WorkTimeLineViewComponent implements OnInit, OnChanges, AfterViewIn
 
   private currentTimeVisible = new BehaviorSubject<boolean>(false);
   public currentTimeVisible$ = this.currentTimeVisible.asObservable();
-  private containerWidth$ = new Subject<number>();
 
+  private containersWidth$ = interval(100).pipe(
+    startWith(0),
+    filter(() => this.scrollableWidthDiv != null),
+    map(() => this.scrollableWidthDiv?.nativeElement.clientWidth),
+    distinctUntilChanged(),
+    map((cw) => ({
+      containerWidth: cw,
+      hourContainerWidth: Math.max(cw, 600) - 100,
+      scrollSizePx: Math.max(cw, 600),
+    })),
+    tap((c) => console.log(c)),
+  );
+  
   public vm$ = combineLatest([
     this.sectionsWithHours$,
-    this.containerWidth$,
     this.eventTimes$,
+    this.containersWidth$,
   ]).pipe(
-    map(([sectionsWithHours, containerWidth, eventTimes]) => ({
+    map(([sectionsWithHours, eventTimes, containersWidth]) => ({
       ...sectionsWithHours,
-      containerWidth,
       eventTimes,
+      containerWidthPx: containersWidth.containerWidth,
+      scrollSizePx: containersWidth.scrollSizePx,
+      containersWidth,
     })),
     map((vm) => ({
       ...vm,
-      hourWidth: vm.containerWidth / (vm.maxHour - vm.minHour),
+      hourWidth: vm.containersWidth.hourContainerWidth / (vm.maxHour - vm.minHour),
     })),
     map((vm) => ({
       ...vm,
@@ -87,8 +101,10 @@ export class WorkTimeLineViewComponent implements OnInit, OnChanges, AfterViewIn
     })),
   );
 
-  @ViewChild('container')
-  public container?: ElementRef;
+  @ViewChild('scrollableWidth')
+  public scrollableWidthDiv?: ElementRef;
+  @ViewChild('hourContainer')
+  public hourContainer?: ElementRef;
 
   public mousePosition$ = new BehaviorSubject({
     x: 0,
@@ -119,12 +135,6 @@ export class WorkTimeLineViewComponent implements OnInit, OnChanges, AfterViewIn
     if (changes.sections != null) {
       this.sections$.next(this.sections);
     }
-  }
-
-  ngAfterViewInit(): void {
-    setTimeout(() => {
-      this.containerWidth$.next(this.container?.nativeElement.clientWidth);
-    }, 100);
   }
 
   public getActivityStyles(activity: WorkTimeLineActivityModel, event: WorkTimeLineEventModel, vm: any): any {

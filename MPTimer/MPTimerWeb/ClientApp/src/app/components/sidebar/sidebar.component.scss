@@ -1,8 +1,14 @@
 @import "colors";
+@import "variables";
 
 $expandedWidth: 200px;
 $collpasedWidth: 50px;
 $sideBarItemHeight: 40px;
+
+.sidebar-container {
+    height: 100%;
+    position: relative;
+}
 
 .sidebar {
     background-color: $secondaryColor;
@@ -59,5 +65,13 @@ $sideBarItemHeight: 40px;
                 color: black;
             }
         }
+    }
+}
+
+@media (max-width: $phoneSize) {
+    .sidebar {
+        position: absolute;
+        z-index: 99;
+        width: 0;
     }
 }

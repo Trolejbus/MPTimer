@@ -49,7 +49,7 @@ namespace MPTimerAgent
 
         public async Task DisconnectAllAgents()
         {
-            var agentRuntimes = await _context.AgentRuntime.ToListAsync();
+            var agentRuntimes = await _context.AgentRuntime.Where(a => a.To == null).ToListAsync();
             foreach (var agentRuntime in agentRuntimes)
             {
                 agentRuntime.To = DateTime.UtcNow;
