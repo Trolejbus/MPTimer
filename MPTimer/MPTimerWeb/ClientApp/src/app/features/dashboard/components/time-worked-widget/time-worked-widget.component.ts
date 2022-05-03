@@ -1,10 +1,10 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { AgentRuntimeDto, AgentRuntimeService } from '@app/features';
-import { WorkspaceEventDto, WorkspaceEventService } from '@app/features/workspace-events';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { AgentRuntimeDto } from '@app/features';
+import { WorkspaceEventDto } from '@app/features/workspace-events';
 import { LayoutService } from '@app/services';
-import { TimeSpan } from '@app/shared';
-import { combineLatest, interval } from 'rxjs';
-import { map, startWith, tap } from 'rxjs/operators';
+import { DateUtils, TimeSpan } from '@app/shared';
+import { BehaviorSubject, combineLatest, interval } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 
 const BREAK_PER_HOUR_IN_SECONDS = 375;
 const HOURS_PER_DAY = 8;
@@ -16,6 +16,25 @@ const HOURS_PER_DAY = 8;
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TimeWorkedWidgetComponent implements OnInit {
+
+  private agentRuntimes$ = new BehaviorSubject<AgentRuntimeDto[]>([]);
+  private workspaceEvents$ = new BehaviorSubject<WorkspaceEventDto[]>([]);
+  private selectedDate$ = new BehaviorSubject<Date>(new Date());
+
+  @Input()
+  public set selectedDate(value: Date) {
+    this.selectedDate$.next(value);
+  }
+
+  @Input()
+  public set agentRuntimes(value: AgentRuntimeDto[]) {
+    this.agentRuntimes$.next(value);
+  }
+
+  @Input()
+  public set workspaceEvents(value: WorkspaceEventDto[]) {
+    this.workspaceEvents$.next(value);
+  }
 
   public data = {
     labels: ['',''],
@@ -35,8 +54,9 @@ export class TimeWorkedWidgetComponent implements OnInit {
   };
 
   public vm$ = combineLatest([
-    this.agentRuntimeService.agentRuntimes$.pipe(startWith([])),
-    this.workspaceEventService.workspaceEvents$.pipe(startWith([])),
+    this.selectedDate$,
+    this.agentRuntimes$,
+    this.workspaceEvents$,
     this.layoutService.sizeMode$.pipe(
       map(sizeMode => ({
         chartSize: this.getChartSize(sizeMode),
@@ -45,9 +65,11 @@ export class TimeWorkedWidgetComponent implements OnInit {
     ),
     interval(1000).pipe(startWith(0)),
   ]).pipe(
-    map(([runtimes, workspaceEvents, charts]) => ({
+    map(([selectedDate, runtimes, workspaceEvents, charts]) => ({
       runtimes: runtimes.sort((a, b) => a.from > b.from ? 1 : (a.from < b.from ? -1 : 0)),
       workspaceEvents,
+      isMaxDate: DateUtils.isInCurrentDay(selectedDate),
+      selectedDate,
       ...charts,
     })),
     map((vm) => ({
@@ -55,8 +77,7 @@ export class TimeWorkedWidgetComponent implements OnInit {
       startedAt: this.getStartedAt(vm.runtimes),
       finishedAt: this.getFinishedAt(vm.runtimes),
       breakTime: this.getBreakTime(vm.runtimes, vm.workspaceEvents),
-      currentTime: new Date(),
-      
+      currentTime: vm.isMaxDate ? new Date() : null,   
     })),
     map((vm) => ({
       ...vm,
@@ -67,12 +88,9 @@ export class TimeWorkedWidgetComponent implements OnInit {
       ...vm,
       chartData: this.getChartData(vm.workTime),
     })),
-    tap(vm => console.log(vm)),
   );
 
   constructor(
-    private agentRuntimeService: AgentRuntimeService,
-    private workspaceEventService: WorkspaceEventService,
     private layoutService: LayoutService,
   ) { }
 
@@ -83,6 +101,12 @@ export class TimeWorkedWidgetComponent implements OnInit {
     let result = timeSpan.hour < 10 ? `0${timeSpan.hour}` : timeSpan.hour.toString();
     result += ':' + (timeSpan.minute < 10 ? `0${timeSpan.minute}` : timeSpan.minute.toString());
     return result += showSeconds ? ':' + (timeSpan.second < 10 ? `0${timeSpan.second}` : timeSpan.second.toString()) : '';
+  }
+
+  public isSameDate(date: Date, selectedDate: Date): boolean {
+    return selectedDate.getFullYear() == date.getFullYear() &&
+      selectedDate.getMonth() == date.getMonth() &&
+      selectedDate.getDay() == date.getDay();
   }
 
   private getStartedAt(runtimes: AgentRuntimeDto[]): Date | null {
@@ -126,6 +150,10 @@ export class TimeWorkedWidgetComponent implements OnInit {
   }
 
   private getRuntimeBreaks(runtimes: AgentRuntimeDto[]): TimeGap[] {
+    if (runtimes.length < 2) {
+      return [];
+    }
+
     const runtimesUnified = this.getUnified(runtimes.map(r => ({ from: r.from, to: r.to ?? new Date()})));
     return runtimesUnified.reduce<{ previous: TimeGap | null, result: TimeGap[] }>((p, c) => ({
         previous: c,

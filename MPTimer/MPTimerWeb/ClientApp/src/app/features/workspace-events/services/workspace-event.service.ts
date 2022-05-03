@@ -1,9 +1,9 @@
 import { Injectable } from "@angular/core";
 import { environment } from "../../../../environments/environment";
-import { combineLatest } from "rxjs";
+import { combineLatest, Observable } from "rxjs";
 import { map, startWith, switchMap } from "rxjs/operators";
 import { SignalRService } from "@app/services";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { WorkspaceEventDto } from "../models";
 import { DateUtils } from "@app/shared";
 
@@ -16,12 +16,9 @@ export class WorkspaceEventService {
     this.agentConnected$,
     this.agentDisconnected$
   ]).pipe(
-    switchMap(() => this.httpClient.get<WorkspaceEventDto[]>(`${environment.backendUrl}/api/workspaceEvents`)),
-    map((runtimes) => runtimes.map(runtime => ({
-      ...runtime,
-      from: DateUtils.convertUTCDateToLocalDate(runtime.from),
-      to: runtime.to != null ? DateUtils.convertUTCDateToLocalDate(runtime.to) : null,
-    }) as WorkspaceEventDto)),
+    map(() => this.getFilterParams(new Date())),
+    switchMap((filter) => this.httpClient.get<WorkspaceEventDto[]>(`${environment.backendUrl}/api/workspaceEvents`, { params: filter })),
+    map((runtimes) => this.parseDates(runtimes)),
   );
   
   constructor(
@@ -29,5 +26,29 @@ export class WorkspaceEventService {
     private signalRService: SignalRService,
   ) {
     
+  }
+
+  public get(date: Date): Observable<WorkspaceEventDto[]> {
+    const filter = this.getFilterParams(date);
+    return this.httpClient.get<WorkspaceEventDto[]>(`${environment.backendUrl}/api/workspaceEvents`, { params: filter }).pipe(
+      map(result => this.parseDates(result)),
+    );
+  }
+
+  private getFilterParams(date: Date): HttpParams {
+    const from = new Date(date.getFullYear(), date.getMonth(), date.getDay() + 1);
+    const to = new Date(date.getFullYear(), date.getMonth(), date.getDay() + 2);
+    let params = new HttpParams();
+    params = params.append('from', from.toISOString());
+    params = params.append('to', to.toISOString());
+    return params;
+  }
+
+  private parseDates(runtimes: WorkspaceEventDto[]): WorkspaceEventDto[] {
+    return runtimes.map(runtime => ({
+      ...runtime,
+      from: DateUtils.convertUTCDateToLocalDate(runtime.from),
+      to: runtime.to != null ? DateUtils.convertUTCDateToLocalDate(runtime.to) : null,
+    }) as WorkspaceEventDto);
   }
 }

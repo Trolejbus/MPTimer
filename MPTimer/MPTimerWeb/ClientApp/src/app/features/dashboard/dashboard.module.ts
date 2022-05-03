@@ -6,6 +6,8 @@ import { ChartModule } from 'primeng/chart';
 import { AgentWidgetComponent, DashboardComponent, TimeWorkedWidgetComponent, CurrentTaskWidgetComponent, WorkTimeLineComponent,
   WorkTimeLineViewComponent } from './components';
 import { TooltipModule } from 'primeng/tooltip';
+import { CalendarModule } from 'primeng/calendar';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -21,9 +23,12 @@ import { TooltipModule } from 'primeng/tooltip';
     RouterModule.forChild([
       { path: '', component: DashboardComponent },
     ]),
+    FormsModule,
+    ReactiveFormsModule,
     KnobModule,
     ChartModule,
     TooltipModule,
-  ]
+    CalendarModule,
+  ],
 })
 export class DashboardModule { }

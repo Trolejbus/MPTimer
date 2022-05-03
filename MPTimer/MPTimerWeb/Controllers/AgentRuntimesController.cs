@@ -20,9 +20,9 @@ namespace MPTimerWeb.Controllers
         }
 
         [HttpGet("/api/agentRuntimes")]
-        public async Task<IEnumerable<AgentRuntime>> GetAll()
+        public async Task<IEnumerable<AgentRuntime>> GetAll([FromQuery] AgentRuntimeFilter filter)
         {
-            return await _repository.GetAll(new AgentRuntimeFilter() { OnlyToday = true });
+            return await _repository.GetAll(filter);
         }
     }
 }

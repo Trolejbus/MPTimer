@@ -1,16 +1,27 @@
-<div class="dashboard-row">
-    <div class="section time-worked">
-        <app-time-worked-widget></app-time-worked-widget>
+<ng-container *ngIf="vm$ | async as vm">
+    <div class="dashboard-row">
+        <div class="section menu">
+            <div class="date-picker">
+                <i class="pi pi-chevron-left navigation" (click)="previousDay()"></i>
+                <i class="pi pi-chevron-right navigation" (click)="nextDay(isMaxDate(currentDate))" [class.disabled]="isMaxDate(currentDate)"></i>
+                <p-calendar class="date-picker" [showIcon]="true" [(ngModel)]="currentDate" dateFormat="yy-mm-dd" [maxDate]="maxDate"></p-calendar>
+            </div>
+        </div>
     </div>
-    <div class="section">
-        <app-agent-widget></app-agent-widget>
+    <div class="dashboard-row">
+        <div class="section time-worked">
+            <app-time-worked-widget [agentRuntimes]="vm.agentRuntimes" [workspaceEvents]="vm.workspaceEvents" [selectedDate]="vm.selectedDate"></app-time-worked-widget>
+        </div>
+        <div class="section">
+            <app-agent-widget></app-agent-widget>
+        </div>
+        <div class="section">
+            <app-current-task-widget></app-current-task-widget>
+        </div>
     </div>
-    <div class="section">
-        <app-current-task-widget></app-current-task-widget>
+    <div class="dashboard-row">
+        <div class="section">
+            <app-work-time-line [agentRuntimes]="vm.agentRuntimes" [workspaceEvents]="vm.workspaceEvents"></app-work-time-line>
+        </div>
     </div>
-</div>
-<div class="dashboard-row">
-    <div class="section">
-        <app-work-time-line></app-work-time-line>
-    </div>
-</div>
+</ng-container>

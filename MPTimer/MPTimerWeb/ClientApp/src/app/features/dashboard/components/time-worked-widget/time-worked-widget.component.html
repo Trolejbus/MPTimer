@@ -7,7 +7,7 @@
         <table>
             <tr>
                 <td class="timer-label">Current time:</td>
-                <td>{{ vm.currentTime | date:'HH:mm:ss' }}</td>
+                <td>{{ vm.currentTime != null ? (vm.currentTime | date:'HH:mm:ss') : 'browsing past' }}</td>
             </tr>
             <tr>
                 <td class="timer-label">Break time:</td>
@@ -19,7 +19,7 @@
             </tr>
             <tr>
                 <td class="timer-label">Estimated finish:</td>
-                <td>{{ vm.plannedFinishedAt | date:'HH:mm:ss' }}</td>
+                <td>{{ isSameDate(vm.plannedFinishedAt, vm.selectedDate) ? '' : '(tommorow at)' }} {{ vm.plannedFinishedAt | date:'HH:mm:ss' }}</td>
             </tr>
         </table>
     </div>

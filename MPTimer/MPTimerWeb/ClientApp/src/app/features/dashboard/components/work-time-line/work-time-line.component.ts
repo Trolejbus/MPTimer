@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AgentRuntimeService, AgentService } from '@app/features/agents';
+import { AgentRuntimeDto, AgentRuntimeService, AgentService } from '@app/features/agents';
 import { SourceControlService } from '@app/features/source-control';
-import { WorkspaceEventService, WorkspaceEventType } from '@app/features/workspace-events';
-import { combineLatest, Observable } from 'rxjs';
-import { map, startWith, tap } from 'rxjs/operators';
+import { WorkspaceEventDto, WorkspaceEventService, WorkspaceEventType } from '@app/features/workspace-events';
+import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 import { WorkTimeLineSectionModel } from './models';
 
 @Component({
@@ -13,10 +13,23 @@ import { WorkTimeLineSectionModel } from './models';
 })
 export class WorkTimeLineComponent implements OnInit {
 
+  private agentRuntimes$ = new BehaviorSubject<AgentRuntimeDto[]>([]);
+  private workspaceEvents$ = new BehaviorSubject<WorkspaceEventDto[]>([]);
+
+  @Input()
+  public set agentRuntimes(value: AgentRuntimeDto[]) {
+    this.agentRuntimes$.next(value);
+  }
+
+  @Input()
+  public set workspaceEvents(value: WorkspaceEventDto[]) {
+    this.workspaceEvents$.next(value);
+  }
+
   public sections$: Observable<WorkTimeLineSectionModel[]> = combineLatest([
     this.agentService.entities$,
-    this.agentRuntimeService.agentRuntimes$.pipe(startWith([])),
-    this.workspaceEventService.workspaceEvents$.pipe(startWith([])),
+    this.agentRuntimes$,
+    this.workspaceEvents$,
     this.sourceControlService.sourceControls$.pipe(startWith([])),
   ]).pipe(
     map(([agents, runtimes, workspaceEvents, sourceControls]) => ([

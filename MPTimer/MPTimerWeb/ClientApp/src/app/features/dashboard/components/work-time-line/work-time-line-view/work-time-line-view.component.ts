@@ -73,10 +73,9 @@ export class WorkTimeLineViewComponent implements OnInit, OnChanges {
     distinctUntilChanged(),
     map((cw) => ({
       containerWidth: cw,
-      hourContainerWidth: Math.max(cw, 600) - 100,
+      hourContainerWidth: Math.max(cw, 600) - 120,
       scrollSizePx: Math.max(cw, 600),
     })),
-    tap((c) => console.log(c)),
   );
   
   public vm$ = combineLatest([

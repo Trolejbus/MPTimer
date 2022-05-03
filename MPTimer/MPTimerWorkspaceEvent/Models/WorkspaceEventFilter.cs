@@ -2,6 +2,7 @@
 {
     public class WorkspaceEventFilter
     {
-        public bool? OnlyToday { get; set; }
+        public DateTime From { get; set; }
+        public DateTime To { get; set; }
     }
 }

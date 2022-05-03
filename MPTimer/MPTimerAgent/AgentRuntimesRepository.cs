@@ -14,13 +14,11 @@ namespace MPTimerAgent
             _context = context;
         }
 
-        public async Task<IEnumerable<AgentRuntime>> GetAll(AgentRuntimeFilter? filter)
+        public async Task<IEnumerable<AgentRuntime>> GetAll(AgentRuntimeFilter filter)
         {
             var query = _context.AgentRuntime.AsQueryable();
-            if (filter?.OnlyToday ?? false)
-            {
-                query = query.Where(q => q.From > DateTime.UtcNow.Date && (q.To == null || q.To < DateTime.UtcNow.Date.AddDays(1)));
-            }
+            query = query.Where(q => q.From >= filter.From);
+            query = query.Where(q => q.From < filter.To);
 
             return await query.ToListAsync();
         }

@@ -21,9 +21,9 @@ namespace MPTimerWeb.Controllers
         }
 
         [HttpGet("/api/workspaceEvents")]
-        public async Task<IEnumerable<WorkspaceEvent>> GetAll()
+        public async Task<IEnumerable<WorkspaceEvent>> GetAll([FromQuery] WorkspaceEventFilter filter)
         {
-            return await _repository.GetAll(new WorkspaceEventFilter() { OnlyToday = true });
+            return await _repository.GetAll(filter);
         }
 
         [HttpPost("/api/workspaceEvent")]

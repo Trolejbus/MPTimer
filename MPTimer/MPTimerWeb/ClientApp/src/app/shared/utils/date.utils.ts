@@ -20,4 +20,19 @@ export class DateUtils {
             date.getMinutes().toString().padStart(2, '0')}:${
             date.getSeconds().toString().padStart(2, '0')}`;
     }
+
+    public static isInCurrentDay(date: Date): boolean {
+        const maxDate = new Date();
+        if (date.getFullYear() == maxDate.getFullYear()) {
+            if (date.getMonth() == maxDate.getMonth()) {
+                return date.getDay() >= maxDate.getDay();
+            }
+            else {
+                return date.getMonth() > maxDate.getMonth();
+            }
+        }
+        else {
+            return date.getFullYear() > maxDate.getFullYear();
+        }
+    }
 }

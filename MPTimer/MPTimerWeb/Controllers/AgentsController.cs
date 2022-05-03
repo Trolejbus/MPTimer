@@ -42,7 +42,7 @@ namespace MPTimerWeb.Controllers
         }
 
         [HttpPut("/api/agent/{id}")]
-        public async Task<AgentDto> Add(Guid id, AgentDto AgentDto)
+        public async Task<AgentDto> Update(Guid id, AgentDto AgentDto)
         {
             var model = _mapper.Map<Agent>(AgentDto);
             var checks = await _repository.Update(id, model);
