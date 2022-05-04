@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AgentRuntimeDto, AgentRuntimeService, AgentService } from '@app/features/agents';
-import { SourceControlService } from '@app/features/source-control';
+import { SourceControlDto, SourceControlService } from '@app/features/source-control';
 import { WorkspaceEventDto, WorkspaceEventService, WorkspaceEventType } from '@app/features/workspace-events';
 import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
@@ -15,6 +15,7 @@ export class WorkTimeLineComponent implements OnInit {
 
   private agentRuntimes$ = new BehaviorSubject<AgentRuntimeDto[]>([]);
   private workspaceEvents$ = new BehaviorSubject<WorkspaceEventDto[]>([]);
+  private sourceControls$ = new BehaviorSubject<SourceControlDto[]>([]);
 
   @Input()
   public set agentRuntimes(value: AgentRuntimeDto[]) {
@@ -26,11 +27,16 @@ export class WorkTimeLineComponent implements OnInit {
     this.workspaceEvents$.next(value);
   }
 
+  @Input()
+  public set sourceControls(value: SourceControlDto[]) {
+    this.sourceControls$.next(value);
+  }
+
   public sections$: Observable<WorkTimeLineSectionModel[]> = combineLatest([
     this.agentService.entities$,
     this.agentRuntimes$,
     this.workspaceEvents$,
-    this.sourceControlService.sourceControls$.pipe(startWith([])),
+    this.sourceControls$,
   ]).pipe(
     map(([agents, runtimes, workspaceEvents, sourceControls]) => ([
       {
@@ -93,10 +99,7 @@ export class WorkTimeLineComponent implements OnInit {
   )
 
   constructor(
-    private agentRuntimeService: AgentRuntimeService,
     private agentService: AgentService,
-    private workspaceEventService: WorkspaceEventService,
-    private sourceControlService: SourceControlService,
   ) { }
 
   ngOnInit(): void {

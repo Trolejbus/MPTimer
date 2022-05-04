@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MPSourceControl.Entities;
 using MPSourceControl.Interfaces;
+using MPSourceControl.Models;
 
 namespace MPSourceControl
 {
@@ -19,10 +20,10 @@ namespace MPSourceControl
             return model;
         }
 
-        public async Task<IEnumerable<SourceControl>> GetAll()
+        public async Task<IEnumerable<SourceControl>> GetAll(SourceControlFilter filter)
         {
             var SourceControl = await _context.SourceControl
-                .Include(s => s.Statuses!.Where(s => s.From > DateTime.UtcNow.Date && (s.To == null || s.To < DateTime.UtcNow.Date.AddDays(1))))
+                .Include(s => s.Statuses!.Where(s => s.From > filter.From && (s.To == null || s.To < filter.To)))
                 .ToListAsync();
             return SourceControl;
         }

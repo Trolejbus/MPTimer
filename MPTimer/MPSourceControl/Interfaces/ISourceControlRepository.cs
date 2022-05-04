@@ -1,10 +1,11 @@
 ﻿using MPSourceControl.Entities;
+using MPSourceControl.Models;
 
 namespace MPSourceControl.Interfaces
 {
     public interface ISourceControlRepository
     {
-        Task<IEnumerable<SourceControl>> GetAll();
+        Task<IEnumerable<SourceControl>> GetAll(SourceControlFilter filter);
         Task<SourceControl> Add(SourceControl task);
         Task Remove(Guid id);
         Task<SourceControl> GetById(Guid id);

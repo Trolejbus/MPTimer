@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { AgentRuntimeService } from '@app/features/agents';
+import { SourceControlService } from '@app/features/source-control';
 import { WorkspaceEventService } from '@app/features/workspace-events';
 import { BehaviorSubject, combineLatest } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
@@ -20,10 +21,12 @@ export class DashboardComponent implements OnInit {
     switchMap((date) => combineLatest([
       this.isMaxDate(date) ? this.agentRuntimeService.agentRuntimes$ : this.agentRuntimeService.get(date),
       this.isMaxDate(date) ? this.workspaceEventService.workspaceEvents$ : this.workspaceEventService.get(date),
+      this.isMaxDate(date) ? this.sourceControlService.sourceControls$ : this.sourceControlService.get(date),
     ]).pipe(
-      map(([agentRuntimes, workspaceEvents]) => ({
+      map(([agentRuntimes, workspaceEvents, sourceControls]) => ({
         agentRuntimes,
         workspaceEvents,
+        sourceControls,
         isMaxDate: this.isMaxDate(date),
         selectedDate: date,
       })),
@@ -33,6 +36,7 @@ export class DashboardComponent implements OnInit {
   constructor(
     private agentRuntimeService: AgentRuntimeService,
     private workspaceEventService: WorkspaceEventService,
+    private sourceControlService: SourceControlService,
   ) { }
 
   ngOnInit(): void {

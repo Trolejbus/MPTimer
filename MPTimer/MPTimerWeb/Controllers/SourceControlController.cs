@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.SignalR;
 using MPSourceControl.Entities;
 using MPSourceControl.Interfaces;
+using MPSourceControl.Models;
 using MPTimerWeb.Hubs;
 
 namespace MPTimerWeb.Controllers
@@ -26,9 +27,11 @@ namespace MPTimerWeb.Controllers
         }
 
         [HttpGet("/api/sourceControls")]
-        public async Task<IEnumerable<SourceControl>> GetAll()
+        public async Task<IEnumerable<SourceControl>> GetAll([FromQuery] SourceControlFilter filter)
         {
-            return await _repository.GetAll();
+            filter.From = filter.From ?? DateTime.UtcNow;
+            filter.To = filter.To ?? DateTime.UtcNow.AddDays(1);
+            return await _repository.GetAll(filter);
         }
 
         [HttpPost("/api/sourceControl")]
