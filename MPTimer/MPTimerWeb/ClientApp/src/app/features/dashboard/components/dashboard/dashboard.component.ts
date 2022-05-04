@@ -3,7 +3,7 @@ import { AgentRuntimeService } from '@app/features/agents';
 import { SourceControlService } from '@app/features/source-control';
 import { WorkspaceEventService } from '@app/features/workspace-events';
 import { BehaviorSubject, combineLatest } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { map, switchMap, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-dashboard',
@@ -18,6 +18,7 @@ export class DashboardComponent implements OnInit {
   private currentDate$ = new BehaviorSubject<Date>(new Date());
 
   public vm$ = this.currentDate$.pipe(
+    tap(date => console.log(date)),
     switchMap((date) => combineLatest([
       this.isMaxDate(date) ? this.agentRuntimeService.agentRuntimes$ : this.agentRuntimeService.get(date),
       this.isMaxDate(date) ? this.workspaceEventService.workspaceEvents$ : this.workspaceEventService.get(date),
