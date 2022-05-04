@@ -4,7 +4,7 @@
             <div class="date-picker">
                 <i class="pi pi-chevron-left navigation" (click)="previousDay()"></i>
                 <i class="pi pi-chevron-right navigation" (click)="nextDay(isMaxDate(currentDate))" [class.disabled]="isMaxDate(currentDate)"></i>
-                <p-calendar class="date-picker" [showIcon]="true" [(ngModel)]="currentDate" dateFormat="yy-mm-dd" [maxDate]="maxDate"></p-calendar>
+                <p-calendar class="date-picker" [showIcon]="true" [(ngModel)]="currentDate" (ngModelChange)="dateChanged($event)" dateFormat="yy-mm-dd" [maxDate]="maxDate"></p-calendar>
             </div>
         </div>
     </div>

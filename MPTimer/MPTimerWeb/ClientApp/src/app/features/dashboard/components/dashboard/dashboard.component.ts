@@ -61,6 +61,10 @@ export class DashboardComponent implements OnInit {
     this.currentDate$.next(this.currentDate);
   }
 
+  public dateChanged(date: Date): void {
+    this.currentDate$.next(date);
+  }
+
   public nextDay(disabled: boolean): void {
     if (disabled) {
       return;
