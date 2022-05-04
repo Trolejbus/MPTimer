@@ -36,8 +36,8 @@ export class AgentRuntimeService {
   }
 
   private getFilterParams(date: Date): HttpParams {
-    const from = new Date(date.getFullYear(), date.getMonth(), date.getDay() + 1);
-    const to = new Date(date.getFullYear(), date.getMonth(), date.getDay() + 2);
+    const from = new Date(new Date(date.getFullYear(), date.getMonth(), date.getDate()).getTime() + 1000 * 60 * 60 * 24);
+    const to = new Date(new Date(date.getFullYear(), date.getMonth(), date.getDate()).getTime() + 2 * 1000 * 60 * 60 * 24);
     let params = new HttpParams();
     params = params.append('from', from.toISOString());
     params = params.append('to', to.toISOString());

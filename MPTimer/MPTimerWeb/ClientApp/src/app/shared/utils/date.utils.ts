@@ -25,7 +25,7 @@ export class DateUtils {
         const maxDate = new Date();
         if (date.getFullYear() == maxDate.getFullYear()) {
             if (date.getMonth() == maxDate.getMonth()) {
-                return date.getDay() >= maxDate.getDay();
+                return date.getDate() >= maxDate.getDate();
             }
             else {
                 return date.getMonth() > maxDate.getMonth();

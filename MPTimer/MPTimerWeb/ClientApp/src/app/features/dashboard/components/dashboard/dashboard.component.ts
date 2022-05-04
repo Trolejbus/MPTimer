@@ -3,7 +3,7 @@ import { AgentRuntimeService } from '@app/features/agents';
 import { SourceControlService } from '@app/features/source-control';
 import { WorkspaceEventService } from '@app/features/workspace-events';
 import { BehaviorSubject, combineLatest } from 'rxjs';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-dashboard',
@@ -18,7 +18,6 @@ export class DashboardComponent implements OnInit {
   private currentDate$ = new BehaviorSubject<Date>(new Date());
 
   public vm$ = this.currentDate$.pipe(
-    tap(date => console.log(date)),
     switchMap((date) => combineLatest([
       this.isMaxDate(date) ? this.agentRuntimeService.agentRuntimes$ : this.agentRuntimeService.get(date),
       this.isMaxDate(date) ? this.workspaceEventService.workspaceEvents$ : this.workspaceEventService.get(date),
@@ -46,7 +45,7 @@ export class DashboardComponent implements OnInit {
   public isMaxDate(date: Date): boolean {
     if (date.getFullYear() == this.maxDate.getFullYear()) {
       if (date.getMonth() == this.maxDate.getMonth()) {
-        return date.getDay() >= this.maxDate.getDay();
+        return date.getDate() >= this.maxDate.getDate();
       }
       else {
         return date.getMonth() > this.maxDate.getMonth();

@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AgentRuntimeDto, AgentRuntimeService, AgentService } from '@app/features/agents';
-import { SourceControlDto, SourceControlService } from '@app/features/source-control';
-import { WorkspaceEventDto, WorkspaceEventService, WorkspaceEventType } from '@app/features/workspace-events';
+import { AgentRuntimeDto, AgentService } from '@app/features/agents';
+import { SourceControlDto } from '@app/features/source-control';
+import { WorkspaceEventDto, WorkspaceEventType } from '@app/features/workspace-events';
 import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { WorkTimeLineSectionModel } from './models';
 
 @Component({

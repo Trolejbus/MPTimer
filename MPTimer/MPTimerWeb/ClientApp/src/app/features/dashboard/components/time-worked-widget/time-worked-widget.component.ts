@@ -106,7 +106,7 @@ export class TimeWorkedWidgetComponent implements OnInit {
   public isSameDate(date: Date, selectedDate: Date): boolean {
     return selectedDate.getFullYear() == date.getFullYear() &&
       selectedDate.getMonth() == date.getMonth() &&
-      selectedDate.getDay() == date.getDay();
+      selectedDate.getDate() == date.getDate();
   }
 
   private getStartedAt(runtimes: AgentRuntimeDto[]): Date | null {
