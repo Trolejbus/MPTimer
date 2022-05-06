@@ -56,7 +56,11 @@
             padding: 0;
 
             &.time-worked {
-                height: calc(100vh - 50px);
+                height: calc(100vh - 120px);
+            }
+
+            &.menu {
+                padding: 10px 5px;
             }
         }
     }
