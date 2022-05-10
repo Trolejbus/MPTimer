@@ -16,7 +16,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: "local",
         builder =>
         {
-            builder.WithOrigins("https://localhost:44436")
+            builder.WithOrigins("https://localhost:44436", "chrome-extension://dfhopklmmokoabmecadaehkdnobfojll")
                 .AllowAnyMethod()
                 .AllowAnyHeader()
                 .AllowCredentials();
@@ -48,7 +48,6 @@ app.MapControllerRoute(
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapHub<AgentHub>("/Agent");
-    endpoints.MapHub<FrontendHub>("/Frontend");
 });
 
 app.MapFallbackToFile("index.html"); ;

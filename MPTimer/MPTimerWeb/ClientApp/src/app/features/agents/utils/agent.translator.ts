@@ -5,6 +5,8 @@ export class AgentTranslator {
         switch (agentType) {
             case AgentType.DesktopApp:
                 return "Desktop Tray Worker";
+            case AgentType.ChromeWidget:
+                return "Chrome Widget";
             default:
                 throw new Error("Missing mapping");
         }

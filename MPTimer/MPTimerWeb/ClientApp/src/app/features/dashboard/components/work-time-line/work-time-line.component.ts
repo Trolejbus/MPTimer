@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AgentRuntimeDto, AgentService } from '@app/features/agents';
+import { AgentRuntimeDto, AgentService, AgentType } from '@app/features/agents';
 import { SourceControlDto } from '@app/features/source-control';
 import { WorkspaceEventDto, WorkspaceEventType } from '@app/features/workspace-events';
 import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
@@ -53,7 +53,7 @@ export class WorkTimeLineComponent implements OnInit {
       },
       {
         events: [
-          ...agents.map(agent => ({
+          ...agents.filter(a => a.type === AgentType.DesktopApp).map(agent => ({
             id: `${agent.id}_lock-screen`,
             name: 'Lock screen',
             color: '#2A3132',
@@ -66,7 +66,7 @@ export class WorkTimeLineComponent implements OnInit {
                 notes: `Reason: ${event.data}`,
               })),
           })),
-          ...agents.map(agent => ({
+          ...agents.filter(a => a.type === AgentType.DesktopApp).map(agent => ({
             id: `${agent.id}_idle-time`,
             name: 'Idle time',
             color: '#A8A8A8',

@@ -23,6 +23,7 @@ export class AgentFormComponent implements OnInit {
 
   public types: SelectItem<AgentType>[] = [
     { label: AgentTranslator.type(AgentType.DesktopApp), value: AgentType.DesktopApp },
+    { label: AgentTranslator.type(AgentType.ChromeWidget), value: AgentType.ChromeWidget },
   ];
 
   public formGroup: FormGroup;
