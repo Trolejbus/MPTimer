@@ -1,3 +1,5 @@
+'use strict';
+
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
     switch (request.type) {
