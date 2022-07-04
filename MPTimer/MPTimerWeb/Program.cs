@@ -16,9 +16,10 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: "local",
         builder =>
         {
-            builder.WithOrigins("https://localhost:44436", "chrome-extension://dfhopklmmokoabmecadaehkdnobfojll")
+            builder
                 .AllowAnyMethod()
                 .AllowAnyHeader()
+                .SetIsOriginAllowed(origin => true)
                 .AllowCredentials();
         });
 });

@@ -3,5 +3,7 @@
     public enum WorkspaceEventType
     {
         ScreenLocked,
+        IdleTime,
+        Meeting,
     }
 }

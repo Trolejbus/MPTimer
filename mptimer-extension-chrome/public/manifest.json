@@ -8,6 +8,10 @@
   },
   "permissions": ["storage", "activeTab", "scripting"],
   "options_page": "options.html",
+  "host_permissions": [
+    "https://localhost:7109/*",
+    "https://mptimer.azurewebsites.net/*"
+  ],
   "action": {
     "default_popup": "popup.html",
     "default_icon": {

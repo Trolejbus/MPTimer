@@ -78,6 +78,19 @@ export class WorkTimeLineComponent implements OnInit {
                 to: event.to,
               })),
           })),
+          ...agents.filter(a => a.type === AgentType.ChromeWidget).map(agent => ({
+            id: `${agent.id}_meetings`,
+            name: 'Meetings',
+            color: '#598234',
+            activities: workspaceEvents
+              .filter(event => event.type == WorkspaceEventType.Meeting)
+              .filter(event => event.agentId == agent.id).map(event => ({
+                id: event.id,
+                from: event.from,
+                to: event.to,
+                notes: `Meeting title: ${event.data != null ? (JSON.parse(event.data).meetingTitle ?? '-') : '-'}`,
+              })),
+          })),
         ],
       },
       {

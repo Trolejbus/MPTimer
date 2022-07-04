@@ -1,5 +1,8 @@
 let inCall = false;
 
+const url = "https://mptimer.azurewebsites.net";
+
+
 setInterval(() => {
     const callDivExist = document.querySelector("[data-layout=roi-crop]") != null;
     if (callDivExist != inCall) {
@@ -23,3 +26,5 @@ setInterval(() => {
         inCall = callDivExist;
     }
 }, 1000);
+
+
