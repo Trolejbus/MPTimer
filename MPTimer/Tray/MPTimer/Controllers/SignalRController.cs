@@ -22,22 +22,26 @@ namespace MPTimer.Controllers
             connection = new HubConnectionBuilder()
                 .WithUrl($"{_configuration["BackendUrl"]}/Agent?agentId={agentId}", options =>
                 {
-                    options.AccessTokenProvider = () => Task.FromResult<string?>(agentId);
+                    options.AccessTokenProvider = () => {
+                        var task = Task.FromResult<string?>(agentId);
+                        task.ConfigureAwait(false);
+                        return task;
+                    };
                 })
                 .Build();
             ChangeStatus(SignalRConnectionStatus.NotConnected);
             connection.Closed += async (error) =>
             {
                 ChangeStatus(SignalRConnectionStatus.Disconnected);
-                await Task.Delay(new Random().Next(0, 5) * 1000);
-                await Connect();
+                await Task.Delay(new Random().Next(0, 5) * 1000).ConfigureAwait(false);
+                await ConnectAsync().ConfigureAwait(false);
             };
         }
 
-        public async Task Connect()
+        public async Task ConnectAsync()
         {
             ChangeStatus(SignalRConnectionStatus.Connecting);
-            await connection.StartAsync();
+            await connection.StartAsync().ConfigureAwait(false);
             ChangeStatus(SignalRConnectionStatus.Connected);
         }
         

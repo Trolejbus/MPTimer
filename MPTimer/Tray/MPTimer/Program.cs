@@ -3,6 +3,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Win32;
 using MPTimer.Controls;
 using MPTimer.Interfaces;
+using MPTimer.Models;
+using RestSharp;
 
 namespace MPTimer
 {
@@ -14,23 +16,30 @@ namespace MPTimer
         [STAThread]
         static async Task Main()
         {
-            ApplicationConfiguration.Initialize();
-            var container = new MPTimerContainerFactory().Build();
-            using (var scope = container.BeginLifetimeScope())
+            try
             {
-                var startableAsync = scope.Resolve<IEnumerable<IStartableAsync>>();
-                foreach (var startable in startableAsync)
+                ApplicationConfiguration.Initialize();
+                var container = new MPTimerContainerFactory().Build();
+                using (var scope = container.BeginLifetimeScope())
                 {
-                    await startable.StartAsync();
+                    var startableAsync = scope.Resolve<IEnumerable<IStartableAsync>>();
+                    foreach (var startable in startableAsync)
+                    {
+                        await startable.StartAsync().ConfigureAwait(false);
+                    }
+
+                    var configuration = scope.Resolve<IConfiguration>();
+                    var workspaceController = scope.Resolve<IWorkspaceEventsController>();
+                    var signalRController = scope.Resolve<ISignalRController>();
+
+                    _ = signalRController.ConnectAsync().ConfigureAwait(false);
+                    SystemEvents.SessionSwitch += SystemEvents_SessionSwitch(workspaceController);
+                    Application.Run();
                 }
+            }
+            catch(Exception ex)
+            {
 
-                var configuration = scope.Resolve<IConfiguration>();
-                var workspaceController = scope.Resolve<IWorkspaceEventsController>();
-                var signalRController = scope.Resolve<ISignalRController>();
-
-                _ = signalRController.Connect();
-                SystemEvents.SessionSwitch += SystemEvents_SessionSwitch(workspaceController);
-                Application.Run();
             }
         }
 
@@ -40,11 +49,11 @@ namespace MPTimer
             {
                 if (e.Reason == SessionSwitchReason.SessionLock)
                 {
-                    workspaceEventsController.SessionLocked();
+                    workspaceEventsController.SessionLocked().ConfigureAwait(false);
                 }
                 else if (e.Reason == SessionSwitchReason.SessionUnlock)
                 {
-                    workspaceEventsController.SessionUnlocked();
+                    workspaceEventsController.SessionUnlocked().ConfigureAwait(false);
                 }
             };
         }

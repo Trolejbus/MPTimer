@@ -4,9 +4,9 @@ namespace MPTimer.Exceptions
 {
     public class ExternalServiceException : Exception
     {
-        public IRestResponse Response { get; }
+        public RestResponse Response { get; }
 
-        public ExternalServiceException(IRestResponse response)
+        public ExternalServiceException(RestResponse response)
         {
             Response = response;
         }

@@ -27,7 +27,7 @@ namespace MPTimer.Controllers
         public async Task SessionLocked()
         {
             workspaceEventSessionLocked = new TrayWorkspaceEvent(Guid.NewGuid(), TrayWorkspaceEventType.ScreenLocked, DateTime.UtcNow, _agentId);
-            await _service.Create(workspaceEventSessionLocked);
+            await _service.Create(workspaceEventSessionLocked).ConfigureAwait(false);
         }
 
         private void TimerController_OnTick()
@@ -37,7 +37,9 @@ namespace MPTimer.Controllers
             {
                 if (workspaceEventIdleTime != null)
                 {
-                    IdleStop().Wait();
+                    var idle2 = IdleStopAsync();
+                    idle2.ConfigureAwait(false);
+                    idle2.Wait();
                 }
 
                 var idleFrom = DateTime.UtcNow;
@@ -50,7 +52,9 @@ namespace MPTimer.Controllers
                 return;
             }
 
-            IdleStart(idleTime).Wait();
+            var idle = IdleStartAsync(idleTime);
+            idle.ConfigureAwait(false);
+            idle.Wait();
         }
 
         public async Task SessionUnlocked()
@@ -70,16 +74,16 @@ namespace MPTimer.Controllers
             form.ShowDialog();
             workspaceEventSessionLocked.Data = form.Value;
 
-            await _service.Update(workspaceEventSessionLocked);
+            await _service.Update(workspaceEventSessionLocked).ConfigureAwait(false);
         }
 
-        private async Task IdleStart(uint idleTime)
+        private async Task IdleStartAsync(uint idleTime)
         {
             
-            await _service.Create(workspaceEventIdleTime);
+            await _service.Create(workspaceEventIdleTime).ConfigureAwait(false);
         }
 
-        private async Task IdleStop()
+        private async Task IdleStopAsync()
         {
             if (workspaceEventIdleTime == null)
             {
@@ -87,7 +91,7 @@ namespace MPTimer.Controllers
             }
 
             workspaceEventIdleTime.To = DateTime.UtcNow;
-            await _service.Update(workspaceEventIdleTime);
+            await _service.Update(workspaceEventIdleTime).ConfigureAwait(false);
         }
     }
 }

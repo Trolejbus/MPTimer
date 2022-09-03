@@ -6,6 +6,6 @@ namespace MPTimer.Interfaces
     {
         event Action<SignalRConnectionStatus>? StatusChanged;
         public SignalRConnectionStatus Status { get; }
-        Task Connect();
+        Task ConnectAsync();
     }
 }

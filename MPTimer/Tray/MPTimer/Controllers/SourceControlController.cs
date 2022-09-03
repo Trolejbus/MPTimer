@@ -23,12 +23,12 @@ namespace MPTimer.Controllers
 
         public async Task StartAsync()
         {
-            await LoadSourceControls();    
+            await LoadSourceControls().ConfigureAwait(false);
         }
 
         private async Task LoadSourceControls()
         {
-            sourceControls = await _sourceControlService.GetWatched();
+            sourceControls = await _sourceControlService.GetWatched().ConfigureAwait(false);
             SourceControlLoaded?.Invoke(sourceControls);
             UpdateStatuses(sourceControls);
         }

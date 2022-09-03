@@ -17,16 +17,16 @@ namespace MPTimer.Service
         public async Task<TrayWorkspaceEvent> Create(TrayWorkspaceEvent workspaceEvent)
         {
             var client = new RestClient();
-            var request = new RestRequest($"{_configuration["BackendUrl"]}/api/workspaceEvent", Method.POST).AddJsonBody(workspaceEvent);
-            var response = await client.ExecuteAsync<TrayWorkspaceEvent>(request);
+            var request = new RestRequest($"{_configuration["BackendUrl"]}/api/workspaceEvent", Method.Post).AddJsonBody(workspaceEvent);
+            var response = await client.ExecuteAsync<TrayWorkspaceEvent>(request).ConfigureAwait(false);
             return response.Data;
         }
 
         public async Task<TrayWorkspaceEvent> Update(TrayWorkspaceEvent workspaceEvent)
         {
             var client = new RestClient();
-            var request = new RestRequest($"{_configuration["BackendUrl"]}/api/workspaceEvent/{workspaceEvent.Id}", Method.PUT).AddJsonBody(workspaceEvent);
-            var response = await client.ExecuteAsync<TrayWorkspaceEvent>(request);
+            var request = new RestRequest($"{_configuration["BackendUrl"]}/api/workspaceEvent/{workspaceEvent.Id}", Method.Put).AddJsonBody(workspaceEvent);
+            var response = await client.ExecuteAsync<TrayWorkspaceEvent>(request).ConfigureAwait(false);
             return response.Data;
         }
     }
