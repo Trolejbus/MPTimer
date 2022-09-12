@@ -33,6 +33,7 @@ namespace MPTimer
                     var signalRController = scope.Resolve<ISignalRController>();
 
                     _ = signalRController.ConnectAsync().ConfigureAwait(false);
+                    
                     SystemEvents.SessionSwitch += SystemEvents_SessionSwitch(workspaceController);
                     Application.Run();
                 }

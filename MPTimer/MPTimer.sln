@@ -17,7 +17,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MPTimerAgent", "MPTimerAgen
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tray", "Tray", "{EC64F9C8-A370-4AE5-884F-B100E2C9AC7B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MPSourceControl", "MPSourceControl\MPSourceControl.csproj", "{B0197910-697E-420A-B46B-C2724449D1BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MPSourceControl", "MPSourceControl\MPSourceControl.csproj", "{B0197910-697E-420A-B46B-C2724449D1BF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorkTimerWPF", "Tray\WorkTimerWPF\WorkTimerWPF.csproj", "{B89FC582-49AB-4C33-BA50-68AEE8B32714}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,12 +55,17 @@ Global
 		{B0197910-697E-420A-B46B-C2724449D1BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B0197910-697E-420A-B46B-C2724449D1BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B0197910-697E-420A-B46B-C2724449D1BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B89FC582-49AB-4C33-BA50-68AEE8B32714}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B89FC582-49AB-4C33-BA50-68AEE8B32714}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B89FC582-49AB-4C33-BA50-68AEE8B32714}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B89FC582-49AB-4C33-BA50-68AEE8B32714}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{EBDE293F-75D1-40C7-8CA9-74A247C96B46} = {EC64F9C8-A370-4AE5-884F-B100E2C9AC7B}
+		{B89FC582-49AB-4C33-BA50-68AEE8B32714} = {EC64F9C8-A370-4AE5-884F-B100E2C9AC7B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E8DAAA8F-D525-4575-9483-80139E97CEC5}
