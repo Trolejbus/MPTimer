@@ -17,6 +17,14 @@ export class DateUtils {
         return result;
     }
 
+    public static formatTimeSpan(timeSpanInSeconds: number): string {
+        const flooredSeconds = Math.floor(timeSpanInSeconds);
+        const hours = Math.floor(flooredSeconds / 3600);
+        const minutes =  Math.floor((flooredSeconds - hours * 3600) / 60);
+        const seconds = flooredSeconds - hours * 3600 - minutes * 60;
+        return `${this.formatD(hours)}:${this.formatD(minutes)}:${this.formatD(seconds)}`;
+    } 
+
     private static formatD(digits: number): string {
         return digits.toString().padStart(2, '0');
     }
