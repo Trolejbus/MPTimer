@@ -4,6 +4,7 @@ const path = require('path');
 const Tray = electron.Tray;
 const Menu = electron.Menu;
 const app = electron.app;
+const shell = electron.shell;
 
 const menuTemplate = [
     {
@@ -12,9 +13,13 @@ const menuTemplate = [
         click: _ = console.log('1'),
     },
     {
+        label: 'Open in explorer',
+        click: _ => shell.openPath(''),
+    },
+    {
         label: 'Quit',
         click: _ => app.quit(),
-    }
+    },
 ];
 let i = 0;
 let tray;
@@ -34,12 +39,10 @@ function updateTray() {
 }
 
 function init() {
-    console.log('inited');
     tray = new Tray(path.join('src', 'tray.ico'));
     let menu = Menu.buildFromTemplate(menuTemplate);
     tray.setContextMenu(menu);
     tray.setToolTip('Test tooltip' + i);
-
     updateTray();
 }
 
