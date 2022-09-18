@@ -1,4 +1,4 @@
-import { EventsDb } from './events-db';
+import { EventsDb } from './events-db.service';
 
 export class Events {
     private static allEvents: any[] = [];

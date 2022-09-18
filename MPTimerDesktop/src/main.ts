@@ -1,8 +1,5 @@
-import { app } from "electron";
-import { Events } from "./events";
-import { EventsDb } from "./events-db";
-import { TrayService } from "./tray.service";
-import { WorkspaceEventService } from "./workspace-event.service";
+import { app } from 'electron';
+import { Events, EventsDb, TrayService, WorkspaceEventService } from './services';
 
 export default class Main {
     public static main() {

@@ -1,4 +1,4 @@
-import { powerMonitor } from "electron";
+import { powerMonitor } from 'electron';
 
 export class WorkspaceEventService {
   public static init(): void {

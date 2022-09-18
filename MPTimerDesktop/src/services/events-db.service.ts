@@ -1,4 +1,4 @@
-import { DateUtils } from './date.utils';
+import { DateUtils } from '../utils';
 import fs from 'fs';
 import path from 'path';
 
