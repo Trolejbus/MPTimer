@@ -6,7 +6,7 @@ export class TrayService {
         {
             id: 'menu1',
             label: 'Menu1',
-            click: () => { console.log('1') },
+            click: () => {  },
         },
         {
             label: 'Open in explorer',

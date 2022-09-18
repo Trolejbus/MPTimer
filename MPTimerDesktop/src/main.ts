@@ -17,7 +17,6 @@ export default class Main {
 
         app.on('quit', _ => {
             EventsService.addEvent(new EventModel(EventType.AppStopped));
-            console.log('quit');
         });
     }
 }

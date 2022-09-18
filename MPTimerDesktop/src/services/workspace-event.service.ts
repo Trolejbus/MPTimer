@@ -1,15 +1,16 @@
 import { powerMonitor } from 'electron';
+import { EventType } from '../enums';
+import { EventModel } from '../models';
+import { EventsService } from './events.service';
 
 export class WorkspaceEventService {
   public static init(): void {
     powerMonitor.addListener('lock-screen', () => {
-      console.log('lock');
-      // Screen is locked, do something
+      EventsService.addEvent(new EventModel(EventType.UserLock));
     });
   
     powerMonitor.addListener('unlock-screen', () => {
-      console.log('unlock');
-      // Screen is unlocked, do something else
+      EventsService.addEvent(new EventModel(EventType.UserUnlock));
     });
   }
 }
