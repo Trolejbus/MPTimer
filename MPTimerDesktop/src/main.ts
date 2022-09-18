@@ -1,17 +1,22 @@
 import { app } from 'electron';
-import { Events, EventsDb, TrayService, WorkspaceEventService } from './services';
+import { EventType } from './enums';
+import { EventModel } from './models';
+import { EventsService, EventsDbService, TrayService, WorkspaceEventService } from './services';
 
 export default class Main {
     public static main() {
         app.on('ready', _ => {
-            EventsDb.init();
-            Events.init();
+            EventsDbService.init();
+            EventsService.init();
 
             TrayService.init();
             WorkspaceEventService.init();
+
+            EventsService.addEvent(new EventModel(EventType.AppStarted));
         });
 
-        app.on('before-quit', _ => {
+        app.on('quit', _ => {
+            EventsService.addEvent(new EventModel(EventType.AppStopped));
             console.log('quit');
         });
     }
