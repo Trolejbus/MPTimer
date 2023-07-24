@@ -1,9 +1,0 @@
-<div class="footer">
-    <div class="signalr-status-container" *ngIf="(signalRStatus$ | async) as signalRStatus">
-        <div class="status-icon" [ngClass]="getStatusClass(signalRStatus)">
-            <div class="status-icon-animation"></div>
-        </div>
-        {{ translateSignalRStatus(signalRStatus) }}
-    </div>
-    <div class="copyright">© MPCode 2021</div>
-</div>
